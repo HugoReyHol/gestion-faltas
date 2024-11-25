@@ -6,6 +6,6 @@ import org.hibernate.Session;
 
 public class LoginCtrll {
 
-    private Session session = HibernateUtil.getSession();
+    private final Session session = HibernateUtil.getSession();
 
 }

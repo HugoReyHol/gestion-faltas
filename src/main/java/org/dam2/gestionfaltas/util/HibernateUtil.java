@@ -7,8 +7,8 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-    static SessionFactory factory = null;
-    static Session session = null;
+    static SessionFactory factory;
+    static Session session;
 
     static {
         Configuration cfg = new Configuration();
