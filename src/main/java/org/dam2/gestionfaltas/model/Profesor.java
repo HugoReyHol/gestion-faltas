@@ -94,7 +94,6 @@ public class Profesor {
                 ", nombreProfesor='" + nombreProfesor + '\'' +
                 ", numeroAsignado='" + numeroAsignado + '\'' +
                 ", tipo='" + tipo + '\'' +
-                ", incidencias=" + incidencias +
                 '}';
     }
 }

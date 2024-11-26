@@ -17,13 +17,13 @@ public class Alumno {
     private int puntosAcumulados;
 
     @Column(name = "nombre_alum")
-    private int nombreAlumno;
+    private String nombreAlumno;
 
     @Column(name = "numero_expediente")
     private int numeroExpediente;
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "idGrupo", referencedColumnName = "id_grupo")
+    @JoinColumn(name = "id_grupo", referencedColumnName = "id_grupo")
     private Grupo grupo;
 
     @OneToMany(mappedBy = "idAlumno", cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
@@ -32,7 +32,7 @@ public class Alumno {
     public Alumno() {
     }
 
-    public Alumno(int puntosAcumulados, int nombreAlumno, int numeroExpediente) {
+    public Alumno(int puntosAcumulados, String nombreAlumno, int numeroExpediente) {
         this.puntosAcumulados = puntosAcumulados;
         this.nombreAlumno = nombreAlumno;
         this.numeroExpediente = numeroExpediente;
@@ -54,11 +54,11 @@ public class Alumno {
         this.puntosAcumulados = puntosAcumulados;
     }
 
-    public int getNombreAlumno() {
+    public String getNombreAlumno() {
         return nombreAlumno;
     }
 
-    public void setNombreAlumno(int nombreAlumno) {
+    public void setNombreAlumno(String nombreAlumno) {
         this.nombreAlumno = nombreAlumno;
     }
 
@@ -91,10 +91,9 @@ public class Alumno {
         return "Alumno{" +
                 "idAlumno=" + idAlumno +
                 ", puntosAcumulados=" + puntosAcumulados +
-                ", nombreAlumno=" + nombreAlumno +
+                ", nombreAlumno='" + nombreAlumno + '\'' +
                 ", numeroExpediente=" + numeroExpediente +
                 ", grupo=" + grupo +
-                ", incidencias=" + incidencias +
                 '}';
     }
 }

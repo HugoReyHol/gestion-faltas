@@ -25,11 +25,11 @@ public class Incidencia {
     private String sancion;
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "idAlumno", referencedColumnName = "id_alum")
+    @JoinColumn(name = "id_alum", referencedColumnName = "id_alum")
     private Alumno idAlumno;
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "idProfesor", referencedColumnName = "id_profesor")
+    @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
     private Profesor idProfesor;
 
     public Incidencia() {
