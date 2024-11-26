@@ -2,6 +2,8 @@ package org.dam2.gestionfaltas.model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -15,6 +17,9 @@ public class Grupo {
 
     @Column(name = "nombre_grupo")
     private String nombreGrupo;
+
+    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL)
+    private Set<Alumno> alumnos;
 
     public Grupo() {
     }
@@ -38,6 +43,14 @@ public class Grupo {
 
     public void setNombreGrupo(String nombreGrupo) {
         this.nombreGrupo = nombreGrupo;
+    }
+
+    public Set<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(Set<Alumno> alumnos) {
+        this.alumnos = alumnos;
     }
 
     @Override
