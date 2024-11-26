@@ -18,14 +18,13 @@ public class Grupo {
     @Column(name = "nombre_grupo")
     private String nombreGrupo;
 
-    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "grupo", cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private Set<Alumno> alumnos;
 
     public Grupo() {
     }
 
-    public Grupo(int idGrupo, String nombreGrupo) {
-        this.idGrupo = idGrupo;
+    public Grupo(String nombreGrupo) {
         this.nombreGrupo = nombreGrupo;
     }
 

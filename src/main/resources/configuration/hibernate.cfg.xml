@@ -11,7 +11,10 @@
       	<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
      	<property name="hibernate.show_sql">true</property>
 
-		<!-- Meter clases -->
-<!--     	<mapping class=""/>-->
+		<!-- clases -->
+     	<mapping class="org.dam2.gestionfaltas.model.Alumno"/>
+     	<mapping class="org.dam2.gestionfaltas.model.Grupo"/>
+     	<mapping class="org.dam2.gestionfaltas.model.Profesor"/>
+     	<mapping class="org.dam2.gestionfaltas.model.Incidencia"/>
     </session-factory>
 </hibernate-configuration>

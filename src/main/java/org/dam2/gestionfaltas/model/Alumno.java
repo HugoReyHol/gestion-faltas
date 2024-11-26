@@ -1,6 +1,7 @@
 package org.dam2.gestionfaltas.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -21,19 +22,20 @@ public class Alumno {
     @Column(name = "numero_expediente")
     private int numeroExpediente;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "idGrupo", referencedColumnName = "id_grupo")
     private Grupo grupo;
+
+    @OneToMany(mappedBy = "idAlumno", cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private Set<Incidencia> incidencias;
 
     public Alumno() {
     }
 
-    public Alumno(int idAlumno, int puntosAcumulados, int nombreAlumno, int numeroExpediente, Grupo grupo) {
-        this.idAlumno = idAlumno;
+    public Alumno(int puntosAcumulados, int nombreAlumno, int numeroExpediente) {
         this.puntosAcumulados = puntosAcumulados;
         this.nombreAlumno = nombreAlumno;
         this.numeroExpediente = numeroExpediente;
-        this.grupo = grupo;
     }
 
     public int getIdAlumno() {
@@ -76,6 +78,14 @@ public class Alumno {
         this.grupo = grupo;
     }
 
+    public Set<Incidencia> getIncidencias() {
+        return incidencias;
+    }
+
+    public void setIncidencias(Set<Incidencia> incidencias) {
+        this.incidencias = incidencias;
+    }
+
     @Override
     public String toString() {
         return "Alumno{" +
@@ -84,6 +94,7 @@ public class Alumno {
                 ", nombreAlumno=" + nombreAlumno +
                 ", numeroExpediente=" + numeroExpediente +
                 ", grupo=" + grupo +
+                ", incidencias=" + incidencias +
                 '}';
     }
 }

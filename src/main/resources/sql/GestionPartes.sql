@@ -69,7 +69,7 @@ COLLATE = utf8mb4_general_ci;
 DROP TABLE IF EXISTS `gestionpartes`.`partes_incidencia`;
 CREATE TABLE IF NOT EXISTS `gestionpartes`.`partes_incidencia` (
   `id_alum` INT NULL DEFAULT NULL,
-  `id_grupo` INT NULL DEFAULT NULL,
+  `id_grupo` INT NULL DEFAULT NULL, -- Preguntar a Juan este campo es redundante, alumno ya pertenece a un grupo
   `id_parte` INT NOT NULL AUTO_INCREMENT,
   `id_profesor` INT NULL DEFAULT NULL,
   `descripcion` VARCHAR(255) NULL DEFAULT NULL,
