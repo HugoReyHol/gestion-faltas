@@ -1,5 +1,9 @@
 package org.dam2.gestionfaltas.util;
 
+import org.dam2.gestionfaltas.model.Alumno;
+import org.dam2.gestionfaltas.model.Grupo;
+import org.dam2.gestionfaltas.model.Incidencia;
+import org.dam2.gestionfaltas.model.Profesor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -15,8 +19,11 @@ public class HibernateUtil {
         cfg.configure("configuration/hibernate.cfg.xml");
         // Se registran las clases que hay que MAPEAR con cada tabla de la base de datos
 
-        // Meter models
-        //cfg.addAnnotatedClass();
+        // Models
+        cfg.addAnnotatedClass(Alumno.class);
+        cfg.addAnnotatedClass(Grupo.class);
+        cfg.addAnnotatedClass(Profesor.class);
+        cfg.addAnnotatedClass(Incidencia.class);
 
         //configuration.addAnnotatedClass(Clase1.class);
 
