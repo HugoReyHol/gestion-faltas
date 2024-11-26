@@ -2,6 +2,7 @@ package org.dam2.gestionfaltas.model;
 
 import javax.persistence.*;
 import java.util.Set;
+import org.dam2.gestionfaltas.util.Tipos;
 
 
 @Entity
@@ -23,7 +24,8 @@ public class Profesor {
     private String numeroAsignado;
 
     @Column(name = "tipo")
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private Tipos tipo;
 
     @OneToMany(mappedBy = "idProfesor", cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private Set<Incidencia> incidencias;
@@ -31,7 +33,7 @@ public class Profesor {
     public Profesor() {
     }
 
-    public Profesor(String contrasena, String nombreProfesor, String numeroAsignado, String tipo) {
+    public Profesor(String contrasena, String nombreProfesor, String numeroAsignado, Tipos tipo) {
         this.contrasena = contrasena;
         this.nombreProfesor = nombreProfesor;
         this.numeroAsignado = numeroAsignado;
@@ -70,11 +72,11 @@ public class Profesor {
         this.numeroAsignado = numeroAsignado;
     }
 
-    public String getTipo() {
+    public Tipos getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Tipos tipo) {
         this.tipo = tipo;
     }
 

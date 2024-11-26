@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `gestionpartes`.`profesores` (
   `contrasena` VARCHAR(255) NULL DEFAULT NULL,
   `nombre` VARCHAR(255) NULL DEFAULT NULL,
   `numero_asignado` VARCHAR(255) NULL DEFAULT NULL,
-  `tipo` ENUM('jefe_de_estudios', 'profesor') NULL DEFAULT NULL,
+  `tipo` ENUM('JEFE_DE_ESTUDIOS', 'PROFESOR') NULL DEFAULT NULL,
   PRIMARY KEY (`id_profesor`),
   UNIQUE INDEX `UK_p6ltb4s5eu3ymeanq6rdw944v` (`numero_asignado` ASC))
 ENGINE = InnoDB
