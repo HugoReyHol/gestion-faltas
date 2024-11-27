@@ -2,25 +2,67 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/22"
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0"
+            prefWidth="746.0" style="-fx-background-color: #befc77;" xmlns="http://javafx.com/javafx/22"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.dam2.gestionfaltas.controller.PartesAdvertenciaCtrll">
     <children>
-        <Label layoutX="126.0" layoutY="33.0" prefHeight="35.0" prefWidth="391.0" text="PARTE VERDE DE ADVERTENCIA">
+        <Label fx:id="lbTitulo" layoutX="176.0" layoutY="25.0" text="PARTE VERDE DE ADVERTENCIA">
             <font>
-                <Font name="System Bold" size="24.0"/>
+                <Font name="System Bold" size="27.0"/>
             </font>
         </Label>
-        <TextField fx:id="tf_nExpediente" layoutX="104.0" layoutY="99.0" prefHeight="25.0" prefWidth="195.0"
-                   promptText="Escribe el numero de expendiente"/>
-        <ComboBox fx:id="cb_tipos" layoutX="104.0" layoutY="150.0" prefWidth="150.0"/>
-        <Button fx:id="bt_verde" layoutX="160.0" layoutY="207.0" mnemonicParsing="false" onAction="#onVerde"
-                text="Parte Verde"/>
+        <Label layoutX="21.0" layoutY="117.0" prefHeight="39.0" prefWidth="127.0"
+               text="Número de expediente&#10;del alumno:"/>
+        <Label layoutX="439.0" layoutY="128.0" text="Nombre del Grupo:"/>
+        <Label layoutX="26.0" layoutY="174.0" text="Profesor:"/>
+        <Label layoutX="26.0" layoutY="229.0" text="Fecha:"/>
+        <Label layoutX="446.0" layoutY="229.0" text="Hora:"/>
+        <Line endX="645.0" layoutX="101.0" layoutY="159.0" startX="-100.0"/>
+        <Line endX="645.0" layoutX="101.0" layoutY="209.0" startX="-100.0"/>
+        <TextField fx:id="tf_nExpediente" layoutX="163.0" layoutY="124.0" prefHeight="25.0" prefWidth="248.0"
+                   promptText="Escribe el número del expediente"/>
+        <DatePicker fx:id="datePicker" layoutX="163.0" layoutY="224.0" promptText="dd/mm/aa"/>
+        <ComboBox fx:id="cb_hora" layoutX="562.0" layoutY="224.0" prefHeight="25.0" prefWidth="174.0"/>
+        <Button fx:id="bt_parteVerde" layoutX="250.0" layoutY="72.0" mnemonicParsing="false" onAction="#onParteVerde"
+                style="-fx-background-color: green;" text="Parte Verde" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Button>
+        <Button fx:id="bt_parteNaranja" layoutX="339.0" layoutY="72.0" mnemonicParsing="false"
+                onAction="#onParteNaranja" style="-fx-background-color: orange;" text="Parte Naranja">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Button>
+        <Button fx:id="bt_parteRojo" layoutX="436.0" layoutY="72.0" mnemonicParsing="false" onAction="#onParteRojo"
+                style="-fx-background-color: red;" text="Parte Rojo" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Button>
+        <Line endX="644.0" layoutX="102.0" layoutY="260.0" startX="-100.0"/>
+        <Label layoutX="12.0" layoutY="269.0" text="Descripción de los hechos">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Label>
+        <TextArea fx:id="tx_descripcion" layoutX="13.0" layoutY="295.0" prefHeight="107.0" prefWidth="723.0"/>
+        <Line endX="647.0" layoutX="99.0" layoutY="415.0" startX="-100.0"/>
+        <Button fx:id="bt_crear" layoutX="360.0" layoutY="419.0" mnemonicParsing="false" onAction="#onCrear"
+                style="-fx-background-color: #4ba0ce;" text="Crear" textFill="#fffefe"/>
+        <TextField fx:id="tf_profesor" editable="false" layoutX="163.0" layoutY="171.0" prefHeight="25.0"
+                   prefWidth="248.0"/>
+        <TextField fx:id="tf_nombreGrupo" editable="false" layoutX="562.0" layoutY="124.0" prefHeight="25.0"
+                   prefWidth="174.0"/>
     </children>
 </AnchorPane>
