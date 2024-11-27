@@ -1,0 +1,14 @@
+#anchor-pane{
+    -fx-background-color: #b0acac; /* COLOR DE FONDO DEL ANCHOR PANE GRIS */
+}
+
+#vBox_Login {
+    -fx-border-radius: 10; /* BORDE RADIO DEL VBOX A 10 */
+    -fx-background-radius: 10; /* BORDE DEL FONDO DEL VBOX A 10 */
+    -fx-background-color: #ffffff; /* COLOR DE FONDO DEL VBOX */
+}
+
+#loginBtt{
+    -fx-background-color: #0d6efd; /* COLOR DEL FONDO DEL BOTON AZUL */
+    -fx-text-fill: #ffffff; /* COLOR DEL TEXTO DENTRO DEL BOTON BLANCO */
+}
