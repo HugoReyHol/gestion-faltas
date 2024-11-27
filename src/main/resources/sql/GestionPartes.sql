@@ -30,7 +30,6 @@ DROP TABLE IF EXISTS `gestionpartes`.`alumnos`;
 CREATE TABLE IF NOT EXISTS `gestionpartes`.`alumnos` (
   `id_alum` INT NOT NULL AUTO_INCREMENT,
   `id_grupo` INT NOT NULL,
-  `puntos_acumulados` INT NOT NULL,
   `nombre_alum` VARCHAR(255) NULL DEFAULT NULL,
   `numero_expediente` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id_alum`),
@@ -142,26 +141,26 @@ INSERT INTO grupos (nombre_grupo) VALUES('4º ESO A');
 INSERT INTO grupos (nombre_grupo) VALUES('4º ESO B');
 
 -- Inserción de alumnos en la tabla 'alumnos'
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(1, 4, 'Alejandro García', 1001);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(1, 6, 'María Fernández', 1002);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(2, 4, 'Juan López', 1003);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(2, 12, 'Laura Martínez', 1004);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(3, 9, 'Pablo Sánchez', 1005);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(3, 1, 'Sara González', 1006);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(4, 4, 'David Rodríguez', 1007);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(4, 8, 'Lucía Pérez', 1008);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(5, 7, 'Daniel Gómez', 1009);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(5, 20, 'Elena Díaz', 1010);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(6, 33, 'Javier Ruiz', 1011);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(6, 4, 'Marta Morales', 1012);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(7, 4, 'Carlos Álvarez', 1013);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(7, 9, 'Ana Ortega', 1014);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(8, 16, 'Luis Navarro', 1015);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(8, 10, 'Carmen Ramírez', 1016);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(1, 4, 'Alberto Torres', 1017);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(2, 1, 'Paula Ibáñez', 1018);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(3, 8, 'Miguel Romero', 1019);
-INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(4, 3, 'Isabel Hernández', 1020);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(1, 'Alejandro García', 1001);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(1, 'María Fernández', 1002);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(2, 'Juan López', 1003);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(2, 'Laura Martínez', 1004);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(3, 'Pablo Sánchez', 1005);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(3, 'Sara González', 1006);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(4, 'David Rodríguez', 1007);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(4, 'Lucía Pérez', 1008);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(5, 'Daniel Gómez', 1009);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(5, 'Elena Díaz', 1010);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(6, 'Javier Ruiz', 1011);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(6, 'Marta Morales', 1012);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(7, 'Carlos Álvarez', 1013);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(7, 'Ana Ortega', 1014);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(8, 'Luis Navarro', 1015);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(8, 'Carmen Ramírez', 1016);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(1, 'Alberto Torres', 1017);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(2, 'Paula Ibáñez', 1018);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(3, 'Miguel Romero', 1019);
+INSERT INTO alumnos (id_grupo, nombre_alum, numero_expediente) VALUES(4, 'Isabel Hernández', 1020);
 
 -- Inserción de puntos en la tabla 'puntos_partes'
 INSERT INTO puntos_partes (color, puntos) VALUES('VERDE', 1);
