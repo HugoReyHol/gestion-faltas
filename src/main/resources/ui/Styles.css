@@ -12,3 +12,7 @@
     -fx-background-color: #0d6efd; /* COLOR DEL FONDO DEL BOTON AZUL */
     -fx-text-fill: #ffffff; /* COLOR DEL TEXTO DENTRO DEL BOTON BLANCO */
 }
+
+.menuBtt{
+    -fx-background-color: #ffffff;
+}
