@@ -33,6 +33,10 @@ public class Incidencia {
     @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
     private Profesor idProfesor;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_puntos", referencedColumnName = "id_puntos")
+    private PuntosPartes idPuntos;
+
     public Incidencia() {
     }
 
@@ -104,11 +108,12 @@ public class Incidencia {
         return "Incidencia{" +
                 "idParte=" + idParte +
                 ", descripcion='" + descripcion + '\'' +
-                ", fecha='" + fecha + '\'' +
+                ", fecha=" + fecha +
                 ", hora='" + hora + '\'' +
                 ", sancion='" + sancion + '\'' +
                 ", idAlumno=" + idAlumno +
                 ", idProfesor=" + idProfesor +
+                ", idPuntos=" + idPuntos +
                 '}';
     }
 }
