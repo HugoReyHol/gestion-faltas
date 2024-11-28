@@ -10,6 +10,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `gestionpartes` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `gestionpartes`;
 
+
 -- -----------------------------------------------------
 -- Table `gestionpartes`.`grupos`
 -- -----------------------------------------------------
@@ -22,6 +23,7 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_general_ci;
+
 
 -- -----------------------------------------------------
 -- Table `gestionpartes`.`alumnos`
@@ -51,7 +53,7 @@ ALTER TABLE `gestionpartes`.`alumnos`
 DROP TABLE IF EXISTS `gestionpartes`.`profesores`;
 CREATE TABLE IF NOT EXISTS `gestionpartes`.`profesores` (
   `id_profesor` INT NOT NULL AUTO_INCREMENT,
-  `contrasena` VARCHAR(255) NULL DEFAULT NULL,
+  `contrasena` VARCHAR(64) NULL DEFAULT NULL,
   `nombre` VARCHAR(255) NULL DEFAULT NULL,
   `numero_asignado` VARCHAR(4) NULL DEFAULT NULL,
   `tipo` ENUM('JEFE_DE_ESTUDIOS', 'PROFESOR') NULL DEFAULT NULL,
@@ -89,8 +91,8 @@ CREATE TABLE IF NOT EXISTS `gestionpartes`.`partes_incidencia` (
   `id_puntos` INT NULL DEFAULT NULL,
   `id_profesor` INT NULL DEFAULT NULL,
   `descripcion` VARCHAR(255) NULL DEFAULT NULL,
-  `fecha` VARCHAR(255) NULL DEFAULT NULL,
-  `hora` VARCHAR(255) NULL DEFAULT NULL,
+  `fecha` DATE NULL DEFAULT NULL,
+  `hora` VARCHAR(5) NULL DEFAULT NULL,
   `sancion` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id_parte`),
   INDEX `FKqrx661g5lij25bl2plx6cb2pl` (`id_alum` ASC),
@@ -121,6 +123,7 @@ ALTER TABLE `gestionpartes`.`partes_incidencia`
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 -- Inserción de profesores en la tabla 'profesores'
 INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Juan Perez', 'jefe_de_estudios', 1001, 'ce5ca673d13b36118d54a7cf13aeb0ca012383bf771e713421b4d1fd841f539a');
