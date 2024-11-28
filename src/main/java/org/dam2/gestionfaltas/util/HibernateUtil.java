@@ -1,9 +1,6 @@
 package org.dam2.gestionfaltas.util;
 
-import org.dam2.gestionfaltas.model.Alumno;
-import org.dam2.gestionfaltas.model.Grupo;
-import org.dam2.gestionfaltas.model.Incidencia;
-import org.dam2.gestionfaltas.model.Profesor;
+import org.dam2.gestionfaltas.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -23,6 +20,7 @@ public class HibernateUtil {
         cfg.addAnnotatedClass(Alumno.class);
         cfg.addAnnotatedClass(Grupo.class);
         cfg.addAnnotatedClass(Profesor.class);
+        cfg.addAnnotatedClass(PuntosPartes.class);
         cfg.addAnnotatedClass(Incidencia.class);
 
         //configuration.addAnnotatedClass(Clase1.class);

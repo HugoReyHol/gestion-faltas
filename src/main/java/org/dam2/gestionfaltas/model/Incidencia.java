@@ -1,6 +1,7 @@
 package org.dam2.gestionfaltas.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class Incidencia {
     private String descripcion;
 
     @Column(name = "fecha")
-    private String fecha;
+    private LocalDate fecha;
 
     @Column(name = "hora")
     private String hora;
@@ -32,10 +33,14 @@ public class Incidencia {
     @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
     private Profesor idProfesor;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_puntos", referencedColumnName = "id_puntos")
+    private PuntosPartes idPuntos;
+
     public Incidencia() {
     }
 
-    public Incidencia(String descripcion, String fecha, String hora, String sancion) {
+    public Incidencia(String descripcion, LocalDate fecha, String hora, String sancion) {
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
@@ -58,11 +63,11 @@ public class Incidencia {
         this.descripcion = descripcion;
     }
 
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -103,11 +108,12 @@ public class Incidencia {
         return "Incidencia{" +
                 "idParte=" + idParte +
                 ", descripcion='" + descripcion + '\'' +
-                ", fecha='" + fecha + '\'' +
+                ", fecha=" + fecha +
                 ", hora='" + hora + '\'' +
                 ", sancion='" + sancion + '\'' +
                 ", idAlumno=" + idAlumno +
                 ", idProfesor=" + idProfesor +
+                ", idPuntos=" + idPuntos +
                 '}';
     }
 }

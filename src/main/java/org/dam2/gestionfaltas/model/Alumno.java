@@ -13,9 +13,6 @@ public class Alumno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAlumno;
 
-    @Column(name = "puntos_acumulados")
-    private int puntosAcumulados;
-
     @Column(name = "nombre_alum")
     private String nombreAlumno;
 
@@ -32,8 +29,7 @@ public class Alumno {
     public Alumno() {
     }
 
-    public Alumno(int puntosAcumulados, String nombreAlumno, int numeroExpediente) {
-        this.puntosAcumulados = puntosAcumulados;
+    public Alumno(String nombreAlumno, int numeroExpediente) {
         this.nombreAlumno = nombreAlumno;
         this.numeroExpediente = numeroExpediente;
     }
@@ -44,14 +40,6 @@ public class Alumno {
 
     public void setIdAlumno(int idAlumno) {
         this.idAlumno = idAlumno;
-    }
-
-    public int getPuntosAcumulados() {
-        return puntosAcumulados;
-    }
-
-    public void setPuntosAcumulados(int puntosAcumulados) {
-        this.puntosAcumulados = puntosAcumulados;
     }
 
     public String getNombreAlumno() {
@@ -90,7 +78,6 @@ public class Alumno {
     public String toString() {
         return "Alumno{" +
                 "idAlumno=" + idAlumno +
-                ", puntosAcumulados=" + puntosAcumulados +
                 ", nombreAlumno='" + nombreAlumno + '\'' +
                 ", numeroExpediente=" + numeroExpediente +
                 ", grupo=" + grupo +

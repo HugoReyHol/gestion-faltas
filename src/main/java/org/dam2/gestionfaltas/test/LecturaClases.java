@@ -1,9 +1,6 @@
 package org.dam2.gestionfaltas.test;
 
-import org.dam2.gestionfaltas.model.Alumno;
-import org.dam2.gestionfaltas.model.Grupo;
-import org.dam2.gestionfaltas.model.Incidencia;
-import org.dam2.gestionfaltas.model.Profesor;
+import org.dam2.gestionfaltas.model.*;
 import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -98,6 +95,27 @@ public class LecturaClases {
 
         for (Incidencia i: incidencias) {
             System.out.println(i);
+
+        }
+
+        // Preuba lectura de puntos_partes
+        transaction = null;
+        List<PuntosPartes> puntosPartes = new ArrayList<>();
+
+        try {
+            transaction = session.beginTransaction();
+            puntosPartes = session.createQuery("from PuntosPartes").list();
+            transaction.commit();
+            System.out.println("Bien");
+
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+
+        for (PuntosPartes p: puntosPartes) {
+            System.out.println(p);
 
         }
 
