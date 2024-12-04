@@ -6,15 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b0acac;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.MenuCtrll">
+<AnchorPane prefHeight="514.0" prefWidth="872.0" style="-fx-background-color: #b0acac;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.MenuCtrll">
    <children>
-      <ImageView fitHeight="352.0" fitWidth="455.0" layoutX="124.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="415.0" fitWidth="485.0" layoutX="229.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Image/logoRiberaPequeño.png" />
          </image>
       </ImageView>
-      <Pane prefHeight="49.0" prefWidth="600.0" style="-fx-background-color: white;">
+      <Pane prefHeight="49.0" prefWidth="872.0" style="-fx-background-color: white;">
          <children>
             <ImageView fitHeight="49.0" fitWidth="49.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
