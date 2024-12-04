@@ -88,7 +88,7 @@ public class IncidenciaDAOImpl implements IncidenciaDAO {
 
         try {
             transaction = session.beginTransaction();
-            incidencia = (Incidencia) session.createQuery("from Incidencia where idParte = " + idParte).list().getFirst();
+            incidencia = (Incidencia) session.createQuery("from Incidencia where idParte = " + idParte).list().get(0);
             transaction.commit();
 
         } catch (Exception e) {

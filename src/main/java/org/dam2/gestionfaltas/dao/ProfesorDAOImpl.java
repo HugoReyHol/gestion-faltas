@@ -18,7 +18,7 @@ public class ProfesorDAOImpl implements ProfesorDAO {
 
         try {
             transaction = session.beginTransaction();
-            profesor = (Profesor) session.createQuery("from Profesor where numero_asignado = '" + numeroAsignado + "'").list().getFirst();
+            profesor = (Profesor) session.createQuery("from Profesor where numeroAsignado = '" + numeroAsignado + "'").list().get(0);
             transaction.commit();
 
         } catch (Exception e) {
