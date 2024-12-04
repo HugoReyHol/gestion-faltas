@@ -1,7 +1,6 @@
 package org.dam2.gestionfaltas.dao;
 
 import org.dam2.gestionfaltas.dao.interfaces.PuntosPartesDAO;
-import org.dam2.gestionfaltas.model.Incidencia;
 import org.dam2.gestionfaltas.model.PuntosPartes;
 import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.hibernate.Session;
