@@ -20,7 +20,7 @@ public class App extends Application {
         stage.setScene(scene);
 
         // Cuando se cierre el primer stage cierra tambien la base de datos
-        stage.setOnCloseRequest(_ -> HibernateUtil.close());
+        stage.setOnCloseRequest(e -> HibernateUtil.close());
 
         stage.show();
     }
