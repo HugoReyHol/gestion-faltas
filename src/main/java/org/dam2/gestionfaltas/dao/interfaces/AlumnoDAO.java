@@ -8,4 +8,10 @@ public interface AlumnoDAO {
     public Alumno obtener(int numeroExpediente);
 
     public List<Alumno> listar();
+
+    public void eliminar(int numeroExpediente);
+
+    public void modificar(Alumno alumno);
+
+    public void crear(Alumno alumno);
 }

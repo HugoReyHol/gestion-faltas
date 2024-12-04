@@ -19,7 +19,7 @@ public class AlumnoDAOImpl implements AlumnoDAO {
 
         try {
             transaction = session.beginTransaction();
-            alumno = (Alumno) session.createQuery("from Alumno where numero_expediente = " + numeroExpediente).list().getFirst();
+            alumno = (Alumno) session.createQuery("from Alumno where numeroExpediente = " + numeroExpediente).list().get(0);
             transaction.commit();
 
         } catch (Exception e) {
@@ -47,5 +47,54 @@ public class AlumnoDAOImpl implements AlumnoDAO {
         }
 
         return alumnos;
+    }
+
+    @Override
+    public void eliminar(int numeroExpediente) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            Alumno alumno = obtener(numeroExpediente);
+            session.delete(alumno);
+            transaction.commit();
+
+        } catch (Exception e) {
+            if(transaction != null) transaction.rollback();
+
+        }
+    }
+
+    @Override
+    public void modificar(Alumno alumno) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(alumno);
+            transaction.commit();
+
+        } catch (Exception e) {
+            if(transaction != null) transaction.rollback();
+
+        }
+    }
+
+    @Override
+    public void crear(Alumno alumno) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            session.save(alumno);
+            transaction.commit();
+
+        } catch (Exception e) {
+            if(transaction != null) transaction.rollback();
+
+        }
     }
 }
