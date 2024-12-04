@@ -1,5 +1,6 @@
-package org.dam2.gestionfaltas.dao.interfaces;
+package org.dam2.gestionfaltas.dao;
 
+import org.dam2.gestionfaltas.dao.interfaces.GrupoDAO;
 import org.dam2.gestionfaltas.model.Grupo;
 import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.hibernate.Session;
