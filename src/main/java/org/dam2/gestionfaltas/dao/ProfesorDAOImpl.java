@@ -63,4 +63,37 @@ public class ProfesorDAOImpl implements ProfesorDAO {
 
         }
     }
+
+    @Override
+    public void eliminar(String numeroAsignado) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            Profesor profesor = obtener(numeroAsignado);
+            session.delete(profesor);
+            transaction.commit();
+
+        } catch (Exception e) {
+            if(transaction != null) transaction.rollback();
+
+        }
+    }
+
+    @Override
+    public void modificar(Profesor profesor) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(profesor);
+            transaction.commit();
+
+        } catch (Exception e) {
+            if(transaction != null) transaction.rollback();
+
+        }
+    }
 }
