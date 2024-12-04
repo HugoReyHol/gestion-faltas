@@ -1,9 +1,7 @@
 package org.dam2.gestionfaltas.dao;
 
 import org.dam2.gestionfaltas.dao.interfaces.IncidenciaDAO;
-import org.dam2.gestionfaltas.model.Alumno;
 import org.dam2.gestionfaltas.model.Incidencia;
-import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
