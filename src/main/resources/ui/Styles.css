@@ -16,3 +16,26 @@
 .menuBtt{
     -fx-background-color: #ffffff;
 }
+
+
+
+/****************** PARTES ADVERTENCIA ************************/
+#anchorPane_Partes{
+    -fx-background-color:  #befc77;
+}
+
+#greenBtt{
+    -fx-background-color: green;
+}
+
+#redBtt{
+    -fx-background-color: red;
+}
+
+#orangeBtt{
+    -fx-background-color:  orange;
+}
+
+#crearBtt{
+    -fx-background-color: #4ba0ce;
+}
