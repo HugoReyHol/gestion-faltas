@@ -13,7 +13,7 @@ public class PuntosPartes {
     @Id
     @Column(name = "id_puntos")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idParte;
+    private int idPuntos;
 
     @Column(name = "color")
     @Enumerated(EnumType.STRING)
@@ -33,12 +33,12 @@ public class PuntosPartes {
         this.puntos = puntos;
     }
 
-    public int getIdParte() {
-        return idParte;
+    public int getIdPuntos() {
+        return idPuntos;
     }
 
-    public void setIdParte(int idParte) {
-        this.idParte = idParte;
+    public void setIdPuntos(int idParte) {
+        this.idPuntos = idParte;
     }
 
     public Color getColor() {
@@ -68,7 +68,7 @@ public class PuntosPartes {
     @Override
     public String toString() {
         return "PuntosPartes{" +
-                "idParte=" + idParte +
+                "idParte=" + idPuntos +
                 ", color='" + color + '\'' +
                 ", puntos=" + puntos +
                 '}';
