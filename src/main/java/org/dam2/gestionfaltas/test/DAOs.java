@@ -19,6 +19,11 @@ public class DAOs {
         Alumno aBuscado = alumnoDAO.obtener(1001);
         System.out.println(aBuscado);
 
+        System.out.println(alumnoDAO.contar());
 
+        System.out.println("Prueba sin limitar");
+        System.out.println(alumnoDAO.listar());
+        System.out.println("Prueba limitando");
+        System.out.println(alumnoDAO.listar(2, 5));
     }
 }
