@@ -50,6 +50,29 @@ public class AlumnoDAOImpl implements AlumnoDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public List<Alumno> listar(int inicio, int cantidad) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+        List<Alumno> alumnos = new ArrayList<>();
+
+        try {
+            transaction = session.beginTransaction();
+            alumnos = session.createQuery("from Alumno")
+                    .setFirstResult(inicio)
+                    .setMaxResults(cantidad)
+                    .list();
+            transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+
+        }
+
+        return alumnos;
+    }
+
+    @Override
     public void eliminar(int numeroExpediente) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = null;
@@ -96,5 +119,23 @@ public class AlumnoDAOImpl implements AlumnoDAO {
             if(transaction != null) transaction.rollback();
 
         }
+    }
+
+    @Override
+    public long contar() {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+        long cantidad = 0;
+
+        try {
+            transaction = session.beginTransaction();
+            cantidad = session.createQuery("SELECT COUNT(*) FROM Alumno", Long.class).uniqueResult();
+            transaction.commit();
+
+        } catch (Exception e) {
+            if(transaction != null) transaction.rollback();
+
+        }
+        return cantidad;
     }
 }

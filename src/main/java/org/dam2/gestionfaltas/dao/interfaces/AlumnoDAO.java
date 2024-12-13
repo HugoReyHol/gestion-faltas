@@ -7,6 +7,8 @@ import java.util.List;
 public interface AlumnoDAO {
     public Alumno obtener(int numeroExpediente);
 
+    public List<Alumno> listar(int inicio, int cantidad);
+
     public List<Alumno> listar();
 
     public void eliminar(int numeroExpediente);
@@ -14,4 +16,6 @@ public interface AlumnoDAO {
     public void modificar(Alumno alumno);
 
     public void crear(Alumno alumno);
+
+    public long contar();
 }
