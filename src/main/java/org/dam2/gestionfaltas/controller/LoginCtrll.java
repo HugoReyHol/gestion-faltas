@@ -6,6 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.dam2.gestionfaltas.dao.ProfesorDAOImpl;
 import org.dam2.gestionfaltas.model.Profesor;
+import org.dam2.gestionfaltas.util.AlertUtil;
 import org.dam2.gestionfaltas.util.Encriptador;
 
 
@@ -23,20 +24,17 @@ public class LoginCtrll {
     public void onLogIn(ActionEvent actionEvent) {
         // Comprueba si los campos están vacios
         if (inNumero.getText().isBlank()) {
-            // TODO Alerta de introducir número
-            System.out.println("Numero vacio");
+            AlertUtil.mostrarInfo("El número asignado no puede estar vacío ");
             return;
         }
         if (inContrasena.getText().isBlank()) {
-            // TODO Alerta de introducir contraseña
-            System.out.println("Contra vacia");
+            AlertUtil.mostrarInfo("La contraseña no puede estar vacía ");
             return;
         }
 
         // Comprueba si el campo contiene 4 letras o menos
         if (inNumero.getText().length() > 4) {
-            // TODO Alerta de introducir numero formato correcto
-            System.out.println("Formato malo");
+            AlertUtil.mostrarInfo("El número asignado no puede tener más de 4 letras");
             return;
         }
 
@@ -44,14 +42,12 @@ public class LoginCtrll {
         Profesor profesor = profesorDAO.obtener(inNumero.getText());
 
         if (profesor == null) {
-            // TODO Alerta profesor no existe
-            System.out.println("Profe inventado");
+            AlertUtil.mostrarInfo("El profesor" + inNumero.getText() + " no existe");
             return;
         }
 
         if (!profesor.getContrasena().equals(Encriptador.encriptar(inContrasena.getText()))) {
-            // TODO Alerta contraseña incorrecta
-            System.out.println("Contraseña mala");
+            AlertUtil.mostrarInfo("Contraseña incorrecta, inténtelo de nuevo");
             return;
         }
 
