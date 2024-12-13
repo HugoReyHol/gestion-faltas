@@ -14,8 +14,8 @@ public class HibernateUtil {
     static {
         Configuration cfg = new Configuration();
         cfg.configure("configuration/hibernate.cfg.xml");
-        // Se registran las clases que hay que MAPEAR con cada tabla de la base de datos
 
+        // Se registran las clases que hay que MAPEAR con cada tabla de la base de datos
         // Models
         cfg.addAnnotatedClass(Alumno.class);
         cfg.addAnnotatedClass(Grupo.class);
@@ -23,10 +23,12 @@ public class HibernateUtil {
         cfg.addAnnotatedClass(PuntosPartes.class);
         cfg.addAnnotatedClass(Incidencia.class);
 
-        //configuration.addAnnotatedClass(Clase1.class);
-
-        factory = cfg.buildSessionFactory();
-        session = factory.openSession();
+        try {
+            factory = cfg.buildSessionFactory();
+            session = factory.openSession();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static SessionFactory getSessionFactory() {
@@ -39,8 +41,8 @@ public class HibernateUtil {
 
     public static void close() {
         System.out.println("Cerrando sesion");
-        factory.close();
-        session.close();
+        if (session != null) session.close();
+        if (factory != null) factory.close();
 
     }
 }
