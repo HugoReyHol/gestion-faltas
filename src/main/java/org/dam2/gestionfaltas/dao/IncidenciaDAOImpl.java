@@ -81,6 +81,29 @@ public class IncidenciaDAOImpl implements IncidenciaDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public List<Incidencia> listar(int inicio, int cantidad) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+        List<Incidencia> incidencias = new ArrayList<>();
+
+        try {
+            transaction = session.beginTransaction();
+            incidencias = session.createQuery("from Alumno")
+                    .setFirstResult(inicio)
+                    .setMaxResults(cantidad)
+                    .list();;
+            transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+
+        }
+
+        return incidencias;
+    }
+
+    @Override
     public Incidencia obtener(int idParte) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = null;
@@ -97,5 +120,23 @@ public class IncidenciaDAOImpl implements IncidenciaDAO {
         }
 
         return incidencia;
+    }
+
+    @Override
+    public long contar() {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+        long cantidad = 0;
+
+        try {
+            transaction = session.beginTransaction();
+            cantidad = session.createQuery("SELECT COUNT(*) FROM Incidencia", Long.class).uniqueResult();
+            transaction.commit();
+
+        } catch (Exception e) {
+            if(transaction != null) transaction.rollback();
+
+        }
+        return cantidad;
     }
 }
