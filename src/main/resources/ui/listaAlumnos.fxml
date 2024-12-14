@@ -15,12 +15,13 @@
 
 <AnchorPane id="anchor-pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="872.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.ListaAlumnosCtrll">
     <children>
-        <ImageView fitHeight="514.0" fitWidth="815.0" layoutX="179.0" pickOnBounds="true" preserveRatio="true">
+        <fx:include source="vistaMenu.fxml" />
+        <ImageView fitHeight="468.0" fitWidth="464.0" layoutX="204.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Image/logoRiberaPequeño.png" />
             </image>
         </ImageView>
-        <Pane layoutX="153.0" layoutY="40.0" prefHeight="117.0" prefWidth="578.0" styleClass="paneAzulParte">
+        <Pane layoutX="153.0" layoutY="65.0" prefHeight="117.0" prefWidth="578.0" styleClass="paneAzulParte">
             <children>
                 <Text layoutX="145.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LISTA DE ALUMNOS">
                     <font>
@@ -32,8 +33,8 @@
                 <Button fx:id="buscarNumExpBtt" layoutX="490.0" layoutY="78.0" mnemonicParsing="false" onAction="#onBuscarNumExpAction" prefHeight="25.0" prefWidth="72.0" styleClass="buttons" text="Buscar" />
             </children>
         </Pane>
-        <Pagination fx:id="pagination" layoutX="95.0" layoutY="200.0" prefHeight="286.0" prefWidth="694.0" styleClass="paneAzulParte" />
-        <TableView fx:id="listaPartesTable" layoutX="113.0" layoutY="220.0" prefHeight="214.0" prefWidth="658.0">
+        <Pagination fx:id="pagination" layoutX="95.0" layoutY="204.0" prefHeight="286.0" prefWidth="694.0" styleClass="paneAzulParte" />
+        <TableView fx:id="listaPartesTable" layoutX="113.0" layoutY="224.0" prefHeight="214.0" prefWidth="658.0">
             <columns>
                 <TableColumn fx:id="expedienteCol" prefWidth="119.20001220703125" text="Expediente" />
                 <TableColumn fx:id="nombreAlumnoCol" prefWidth="189.5999755859375" text="Nombre del Alumno" />
