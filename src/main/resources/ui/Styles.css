@@ -39,3 +39,16 @@
 #crearBtt{
     -fx-background-color: #4ba0ce;
 }
+
+
+
+/****************** LISTA PARTES ************************/
+.paneAzulParte{
+    -fx-background-color: #72cae8;
+}
+
+.buttons{
+    -fx-background-color: #198754;
+    -fx-text-fill: #ffffff;
+}
+
