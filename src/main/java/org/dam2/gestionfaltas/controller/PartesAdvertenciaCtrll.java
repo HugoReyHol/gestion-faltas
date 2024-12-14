@@ -8,6 +8,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 
 public class PartesAdvertenciaCtrll {
 
@@ -43,6 +44,12 @@ public class PartesAdvertenciaCtrll {
 
     @FXML
     private TextArea tx_descripcion;
+
+    @FXML
+    private TextArea sancionTxt;
+
+    @FXML
+    private Pane paneOpcionesAdiccional;
 
     @FXML
     void onCrear(ActionEvent event) {
