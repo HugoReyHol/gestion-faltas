@@ -7,14 +7,15 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="872.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.PartesAdvertenciaCtrll">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="872.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.PartesAdvertenciaCtrll">
 
     <children>
         <fx:include source="vistaMenu.fxml" />
-      <AnchorPane id="anchorPane_Partes" layoutX="85.0" layoutY="54.0" prefHeight="452.0" prefWidth="704.0">
+      <AnchorPane id="anchorPane_Partes" fx:id="anchoPaneParte" layoutX="85.0" layoutY="54.0" prefHeight="452.0" prefWidth="704.0">
          <children>
               <Label fx:id="lbTitulo" layoutX="178.0" layoutY="17.0" text="PARTE VERDE DE ADVERTENCIA">
                   <font>
@@ -47,16 +48,32 @@
                   </font>
               </Button>
               <Line endX="644.0" layoutX="104.0" layoutY="252.0" startX="-100.0" />
-              <Label layoutX="14.0" layoutY="261.0" text="Descripción de los hechos">
+              <Line endX="647.0" layoutX="101.0" layoutY="407.0" startX="-100.0" />
+              <Label layoutX="28.0" layoutY="264.0" text="Descripción de los hechos">
                   <font>
                       <Font name="System Bold" size="12.0" />
                   </font>
               </Label>
-              <TextArea fx:id="tx_descripcion" layoutX="15.0" layoutY="287.0" prefHeight="107.0" prefWidth="723.0" />
-              <Line endX="647.0" layoutX="101.0" layoutY="407.0" startX="-100.0" />
+              <TextArea fx:id="tx_descripcion" layoutX="27.0" layoutY="286.0" prefHeight="107.0" prefWidth="311.0" />
               <Button id="crearBtt" fx:id="bt_crear" layoutX="362.0" layoutY="411.0" mnemonicParsing="false" onAction="#onCrear" text="Crear" textFill="#fffefe" />
               <TextField fx:id="tf_profesor" editable="false" layoutX="165.0" layoutY="163.0" prefHeight="25.0" prefWidth="248.0" />
               <TextField fx:id="tf_nombreGrupo" editable="false" layoutX="564.0" layoutY="116.0" prefHeight="25.0" prefWidth="174.0" />
+            <Pane fx:id="paneVerde" layoutX="429.0" layoutY="252.0" prefHeight="144.0" prefWidth="298.0">
+               <children>
+                  <Label layoutY="7.0" text="La sanción que recibes (a determinar por el profesor)">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="tx_sancion" layoutX="1.0" layoutY="30.0" prefHeight="107.0" prefWidth="297.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneRojo" layoutX="411.0" layoutY="257.0" prefHeight="136.0" prefWidth="355.0">
+               <children>
+                  <Label text="La sanción que recibe por Jefatura de Estudios" />
+                  <ComboBox fx:id="opcionesSancioncb" layoutX="3.0" layoutY="26.0" prefHeight="25.0" prefWidth="349.0" />
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
     </children>
