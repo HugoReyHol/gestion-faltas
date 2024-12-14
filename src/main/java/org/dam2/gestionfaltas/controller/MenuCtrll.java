@@ -3,6 +3,7 @@ package org.dam2.gestionfaltas.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.CambiarVista;
 import org.dam2.gestionfaltas.util.R;
 
@@ -19,6 +20,8 @@ public class MenuCtrll {
 
     @FXML
     private Button bt_listaPartes;
+
+    public static Profesor profesor;
 
     @FXML
     void onCrearParte(ActionEvent event) {

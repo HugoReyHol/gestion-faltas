@@ -2,12 +2,18 @@ package org.dam2.gestionfaltas.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.dam2.gestionfaltas.dao.ProfesorDAOImpl;
 import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.AlertUtil;
 import org.dam2.gestionfaltas.util.Encriptador;
+import org.dam2.gestionfaltas.util.R;
+
+import java.io.IOException;
 
 
 public class LoginCtrll {
@@ -42,7 +48,7 @@ public class LoginCtrll {
         Profesor profesor = profesorDAO.obtener(inNumero.getText());
 
         if (profesor == null) {
-            AlertUtil.mostrarInfo("El profesor" + inNumero.getText() + " no existe");
+            AlertUtil.mostrarInfo("El profesor " + inNumero.getText() + " no existe");
             return;
         }
 
@@ -52,7 +58,18 @@ public class LoginCtrll {
         }
 
         // Cambia a escena menu y pasa el profesor iniciado
-        System.out.println("Ha funcionao");
+        FXMLLoader fxmlLoader = new FXMLLoader(R.getUI("vistaMenu.fxml"));
+        Scene scene;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Error al cargar la escena vistaMenu");
+            return;
+        }
+
+        MenuCtrll.profesor = profesor;
+
+        ((Stage) inNumero.getScene().getWindow()).setScene(scene);
 
     }
 }
