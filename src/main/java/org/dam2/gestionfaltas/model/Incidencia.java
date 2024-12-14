@@ -103,6 +103,14 @@ public class Incidencia {
         this.idProfesor = idProfesor;
     }
 
+    public PuntosPartes getIdPuntos() {
+        return idPuntos;
+    }
+
+    public void setIdPuntos(PuntosPartes idPuntos) {
+        this.idPuntos = idPuntos;
+    }
+
     @Override
     public String toString() {
         return "Incidencia{" +
