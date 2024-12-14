@@ -34,7 +34,7 @@
             </children>
         </Pane>
         <Pagination fx:id="pagination" layoutX="95.0" layoutY="204.0" prefHeight="286.0" prefWidth="694.0" styleClass="paneAzulParte" />
-        <TableView fx:id="listaPartesTable" layoutX="113.0" layoutY="224.0" prefHeight="214.0" prefWidth="658.0">
+        <TableView fx:id="listaAlumnosTable" layoutX="113.0" layoutY="224.0" prefHeight="214.0" prefWidth="658.0">
             <columns>
                 <TableColumn fx:id="expedienteCol" prefWidth="119.20001220703125" text="Expediente" />
                 <TableColumn fx:id="nombreAlumnoCol" prefWidth="189.5999755859375" text="Nombre del Alumno" />
