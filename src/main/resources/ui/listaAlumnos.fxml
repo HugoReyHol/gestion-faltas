@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="anchor-pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="872.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.ListaAlumnosCtrll">
+    <children>
+        <ImageView fitHeight="514.0" fitWidth="815.0" layoutX="179.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Image/logoRiberaPequeño.png" />
+            </image>
+        </ImageView>
+        <Pane layoutX="153.0" layoutY="40.0" prefHeight="117.0" prefWidth="578.0" styleClass="paneAzulParte">
+            <children>
+                <Text layoutX="145.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LISTA DE ALUMNOS">
+                    <font>
+                        <Font size="33.0" />
+                    </font>
+                </Text>
+                <Line endX="555.199951171875" layoutX="4.0" layoutY="67.0" startX="13.0" />
+                <TextField fx:id="numExpedienteTF" layoutX="17.0" layoutY="78.0" prefHeight="25.0" prefWidth="476.0" promptText="Buscar por Número de expediente" />
+                <Button fx:id="buscarNumExpBtt" layoutX="490.0" layoutY="78.0" mnemonicParsing="false" onAction="#onBuscarNumExpAction" prefHeight="25.0" prefWidth="72.0" styleClass="buttons" text="Buscar" />
+            </children>
+        </Pane>
+        <Pagination fx:id="pagination" layoutX="95.0" layoutY="200.0" prefHeight="286.0" prefWidth="694.0" styleClass="paneAzulParte" />
+        <TableView fx:id="listaPartesTable" layoutX="113.0" layoutY="220.0" prefHeight="214.0" prefWidth="658.0">
+            <columns>
+                <TableColumn fx:id="expedienteCol" prefWidth="119.20001220703125" text="Expediente" />
+                <TableColumn fx:id="nombreAlumnoCol" prefWidth="189.5999755859375" text="Nombre del Alumno" />
+                <TableColumn fx:id="nombreGrupoCol" prefWidth="168.0" text="Nombre del Grupo" />
+                <TableColumn fx:id="puntosAcumuladosCol" prefWidth="181.5999755859375" text="Puntos Acumulados" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
