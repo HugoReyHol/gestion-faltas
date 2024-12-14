@@ -45,6 +45,7 @@
 /****************** LISTA PARTES ************************/
 .paneAzulParte{
     -fx-background-color: #72cae8;
+    -fx-background-radius: 12;
 }
 
 .buttons{
