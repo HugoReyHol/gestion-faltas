@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor-pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="872.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.ListaPartesCtrll">
+<AnchorPane id="anchor-pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="872.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.ListaPartesCtrll">
     <children>
         <fx:include source="vistaMenu.fxml" />
         <ImageView fitHeight="466.0" fitWidth="476.0" layoutX="203.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
@@ -37,8 +37,8 @@
                 <Button fx:id="buscarFechaBtt" layoutX="444.0" layoutY="117.0" mnemonicParsing="false" onAction="#onBuscarFechaAction" prefHeight="25.0" prefWidth="119.0" styleClass="buttons" text="Buscar por Fecha" />
             </children>
         </Pane>
-        <Pagination fx:id="pagination" layoutX="95.0" layoutY="244.0" prefHeight="246.0" prefWidth="694.0" styleClass="paneAzulParte" />
-        <TableView fx:id="listaPartesTable" layoutX="113.0" layoutY="261.0" prefHeight="174.0" prefWidth="658.0">
+        <Pagination fx:id="pagination" layoutX="42.0" layoutY="244.0" prefHeight="246.0" prefWidth="789.0" styleClass="paneAzulParte" />
+        <TableView fx:id="listaPartesTable" layoutX="60.0" layoutY="261.0" prefHeight="174.0" prefWidth="753.0">
             <columns>
                 <TableColumn fx:id="expedienteCol" prefWidth="75.0" text="Expediente" />
                 <TableColumn fx:id="nombreAlumnoCol" prefWidth="123.20001220703125" text="Nombre del Alumno" />
@@ -47,6 +47,7 @@
                 <TableColumn fx:id="fechaCol" prefWidth="78.39996337890625" text="Fecha" />
                 <TableColumn fx:id="descripcionCol" prefWidth="119.20001220703125" text="Descripción" />
                 <TableColumn fx:id="sancionCol" prefWidth="110.4000244140625" text="Sanción" />
+            <TableColumn fx:id="colVerMas" prefWidth="95.0" />
             </columns>
         </TableView>
     </children>
