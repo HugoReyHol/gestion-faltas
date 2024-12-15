@@ -13,7 +13,7 @@ public interface IncidenciaDAO {
 
     public List<Incidencia> listar();
 
-    public List<Incidencia> listar(int inicio, int cantidad);
+    public List<Incidencia> listarIncidencia(int inicio, int cantidad);
 
     public Incidencia obtener(int idParte);
 
