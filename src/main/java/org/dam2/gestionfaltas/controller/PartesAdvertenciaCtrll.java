@@ -17,7 +17,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
+import org.dam2.gestionfaltas.dao.IncidenciaDAOImpl;
+import org.dam2.gestionfaltas.dao.PuntosPartesDAOImpl;
 import org.dam2.gestionfaltas.model.Alumno;
+import org.dam2.gestionfaltas.model.Incidencia;
+import org.dam2.gestionfaltas.util.AlertUtil;
 import org.dam2.gestionfaltas.util.Color;
 
 import java.io.File;
@@ -81,7 +85,9 @@ public class PartesAdvertenciaCtrll implements Initializable {
     private Alumno alumno;
     private final ObservableList<String> horas = FXCollections.observableArrayList();
     private final ObservableList<String> sanciones = FXCollections.observableArrayList(
-            "Incoación de expediente o en su caso \nexpediente abreviado",
+            """
+                    Incoación de expediente o en su caso
+                    expediente abreviado""",
             "Reunión con la Comisión de Convivencia",
             """
             Es obligado pedir disculpas a la persona/as
@@ -92,8 +98,61 @@ public class PartesAdvertenciaCtrll implements Initializable {
 
     @FXML
     void onCrear(ActionEvent event) {
+        Incidencia incidencia = new Incidencia();
+        incidencia.setIdProfesor(MenuCtrll.profesor);
 
+        if (alumno == null) {
+            AlertUtil.mostrarInfo("Debe introducir un número de expediente válido");
+            return;
+        }
 
+        incidencia.setIdAlumno(alumno);
+
+        incidencia.setFecha(datePicker.getValue());
+
+        if (incidencia.getFecha() == null ) {
+            AlertUtil.mostrarInfo("Debe elegir una fecha");
+            return;
+        }
+
+        incidencia.setHora(cb_hora.getValue());
+
+        if (incidencia.getHora() == null) {
+            AlertUtil.mostrarInfo("Debe elegir una hora");
+            return;
+        }
+
+        if (tx_descripcion.getText().isBlank() || tx_descripcion.getText().length() > 255) {
+            AlertUtil.mostrarInfo("La descripción debe ser menor a 255 carácteres y contener texto");
+            return;
+        }
+
+        incidencia.setDescripcion(tx_descripcion.getText());
+
+        PuntosPartesDAOImpl puntosPartesDAO = new PuntosPartesDAOImpl();
+        incidencia.setIdPuntos(puntosPartesDAO.obtener(color));
+        System.out.println(puntosPartesDAO.obtener(color));
+
+        if (color != Color.ROJO) {
+            incidencia.setSancion(tx_sancion.getText());
+
+            if (incidencia.getSancion().isBlank() || tx_descripcion.getText().length() > 255) {
+                AlertUtil.mostrarInfo("La sanción debe ser menor a 255 carácteres y contener texto");
+                return;
+            }
+
+        }else {
+            incidencia.setSancion(opcionesSancioncb.getValue());
+
+            if (incidencia.getSancion() == null) {
+                AlertUtil.mostrarInfo("Debe elegir una sanción");
+                return;
+            }
+        }
+
+        IncidenciaDAOImpl incidenciaDAO = new IncidenciaDAOImpl();
+
+        incidenciaDAO.crear(incidencia);
 
     }
 
@@ -127,6 +186,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onParteVerde(new ActionEvent());
+        System.out.println(color);
 
         opcionesSancioncb.setItems(sanciones);
 
