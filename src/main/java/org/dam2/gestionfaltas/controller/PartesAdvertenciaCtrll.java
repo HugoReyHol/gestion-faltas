@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
 import org.dam2.gestionfaltas.model.Alumno;
+import org.dam2.gestionfaltas.util.Color;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,7 +75,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
     @FXML
     private TextArea tx_sancion;
 
-    private boolean esVerde = false;
+    private Color color;
     private Alumno alumno;
     private ObservableList<String> horas = FXCollections.observableArrayList();
 
@@ -82,19 +83,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
 
     @FXML
     void onCrear(ActionEvent event) {
-        if (esVerde) {
-            if (tf_nExpediente.getText().isEmpty() || tf_nombreGrupo.getText().isEmpty() ||
-                    tf_profesor.getText().isEmpty() || tx_descripcion.getText().isEmpty() ||
-                    datePicker.getValue() == null || cb_hora.getValue() == null || tx_sancion.getText().isEmpty()) {
-                System.out.println("Estan vacios");
-            }
-        } else {
-            if (tf_nExpediente.getText().isEmpty() || tf_nombreGrupo.getText().isEmpty() ||
-                    tf_profesor.getText().isEmpty() || tx_descripcion.getText().isEmpty() ||
-                    datePicker.getValue() == null || cb_hora.getValue() == null || opcionesSancioncb.getValue() == null) {
-                System.out.println("Estan vacios");
-            }
-        }
+
 
 
     }
@@ -108,7 +97,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
         paneVerde.setVisible(true);
         anchoPaneParte.setStyle("-fx-background-color: orange;");
         lbTitulo.setText("PARTE NARANJA DE ADVERTENCIA");
-        esVerde = true;
+        color = Color.NARANJA;
     }
 
     @FXML
@@ -117,7 +106,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
         paneVerde.setVisible(false);
         anchoPaneParte.setStyle("-fx-background-color: red;");
         lbTitulo.setText("PARTE ROJO DE ADVERTENCIA");
-        esVerde = false;
+        color = Color.ROJO;
     }
 
     @FXML
@@ -126,12 +115,12 @@ public class PartesAdvertenciaCtrll implements Initializable {
         paneVerde.setVisible(true);
         anchoPaneParte.setStyle("-fx-background-color: green;");
         lbTitulo.setText("PARTE VERDE DE ADVERTENCIA");
-        esVerde = true;
+        color = Color.VERDE;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        paneRojo.setVisible(false);
+        color = Color.VERDE;
 
         tf_profesor.setText(MenuCtrll.profesor.getNumeroAsignado());
 
