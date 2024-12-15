@@ -2,12 +2,15 @@ package org.dam2.gestionfaltas.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.CambiarVista;
-import org.dam2.gestionfaltas.util.R;
+import org.dam2.gestionfaltas.util.Tipos;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MenuCtrll {
+public class MenuCtrll implements Initializable {
 
     @FXML
     private Button bt_crearParte;
@@ -43,5 +46,20 @@ public class MenuCtrll {
         CambiarVista.cambiarVistaBtt("listaPartes.fxml", bt_listaPartes, "Lista de Partes");
     } // IR A LA VISTA DE LISTA DE PARTES
 
+    public void actualizarBotones() {
+        if (profesor.getTipo() == Tipos.PROFESOR) {
+            bt_crearProfesor.setVisible(false);
+            bt_listaAlumnos.setVisible(false);
+            bt_listaPartes.setVisible(false);
+
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (profesor != null) {
+            actualizarBotones();
+        }
+    }
 }
 

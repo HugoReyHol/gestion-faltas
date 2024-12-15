@@ -1,11 +1,14 @@
 package org.dam2.gestionfaltas.dao;
 
 import org.dam2.gestionfaltas.dao.interfaces.IncidenciaDAO;
+import org.dam2.gestionfaltas.model.Alumno;
 import org.dam2.gestionfaltas.model.Incidencia;
 import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,14 +85,14 @@ public class IncidenciaDAOImpl implements IncidenciaDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Incidencia> listar(int inicio, int cantidad) {
+    public List<Incidencia> listarIncidencia(int inicio, int cantidad) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = null;
         List<Incidencia> incidencias = new ArrayList<>();
 
         try {
             transaction = session.beginTransaction();
-            incidencias = session.createQuery("from Alumno")
+            incidencias = session.createQuery("from Incidencia")
                     .setFirstResult(inicio)
                     .setMaxResults(cantidad)
                     .list();;
@@ -139,4 +142,44 @@ public class IncidenciaDAOImpl implements IncidenciaDAO {
         }
         return cantidad;
     }
+
+    public List<Incidencia> listarPorAlumno(Alumno alumno) {
+        Session session = HibernateUtil.getSession(); // OBTENER LA SESION
+        Transaction transaction = null; // INICIAR TRANSACCION
+        List<Incidencia> incidencias = new ArrayList<>(); // CREAR LISTA DE INCIDENCIAS
+
+        try {
+            transaction = session.beginTransaction(); // INCIAR TRNASACCION
+            String hql = "FROM Incidencia WHERE idAlumno = :alumno ORDER BY fecha DESC";
+            Query<Incidencia> query = session.createQuery(hql, Incidencia.class);
+            query.setParameter("alumno", alumno);
+            incidencias = query.list();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback(); // SI HAY UN ERROR SE DESHACE LA TRANSACCION
+            e.printStackTrace();
+        }
+        return incidencias; // DEVOLVER LA LISTA
+    } // METODO APRA LISTAR LAS INCIDENCIAS POR ALUMNO
+
+
+    public List<Incidencia> listarPorFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+        Session session = HibernateUtil.getSession(); // OBTENER LA SESION
+        Transaction transaction = null; // INICIAR TRANSACCION
+        List<Incidencia> incidencias = new ArrayList<>(); // CREAR LISTA DE INCIDENCIAS
+
+        try {
+            transaction = session.beginTransaction();
+            String hql = "FROM Incidencia WHERE fecha BETWEEN :fechaInicio AND :fechaFin ORDER BY fecha DESC";
+            Query<Incidencia> query = session.createQuery(hql, Incidencia.class);
+            query.setParameter("fechaInicio", fechaInicio);
+            query.setParameter("fechaFin", fechaFin);
+            incidencias = query.list();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback(); // SI HAY UN ERROR SE DESHACE LA TRANSACCION
+            e.printStackTrace();
+        }
+        return incidencias; // DEVOLVER LA LISTA
+    } // METODO PARA LISTAR INCIDENCIAS POR RANGO DE FECHAS
 }
