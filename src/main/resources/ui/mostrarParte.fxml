@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -25,9 +23,7 @@
         <Label layoutX="449.0" layoutY="175.0" text="Hora:" />
         <Line endX="645.0" layoutX="104.0" layoutY="105.0" startX="-100.0" />
         <Line endX="645.0" layoutX="104.0" layoutY="155.0" startX="-100.0" />
-        <TextField fx:id="tf_nExpediente" editable="false" layoutX="166.0" layoutY="70.0" onKeyTyped="#onEscrito" prefHeight="25.0" prefWidth="248.0" promptText="Escribe el número del expediente" />
-        <DatePicker fx:id="datePicker" editable="false" layoutX="166.0" layoutY="170.0" promptText="dd/mm/aa" />
-        <ComboBox fx:id="cb_hora" layoutX="565.0" layoutY="170.0" prefHeight="25.0" prefWidth="174.0" />
+        <TextField fx:id="tf_nExpediente" editable="false" layoutX="166.0" layoutY="70.0" prefHeight="25.0" prefWidth="248.0" promptText="Escribe el número del expediente" />
         <Line endX="644.0" layoutX="105.0" layoutY="206.0" startX="-100.0" />
         <Label layoutX="29.0" layoutY="218.0" text="Descripción de los hechos">
             <font>
@@ -50,9 +46,11 @@
       <Pane fx:id="paneRojo" layoutX="412.0" layoutY="211.0" prefHeight="136.0" prefWidth="355.0">
          <children>
             <Label text="La sanción que recibe por Jefatura de Estudios" />
-            <ComboBox fx:id="opcionesSancioncb" layoutX="3.0" layoutY="26.0" prefHeight="25.0" prefWidth="349.0" />
+            <TextField fx:id="opcionesSancioncb" editable="false" layoutX="3.0" layoutY="26.0" prefHeight="26.0" prefWidth="349.0" />
          </children>
       </Pane>
+      <TextField fx:id="datePicker" editable="false" layoutX="166.0" layoutY="170.0" prefHeight="26.0" prefWidth="191.0" />
+      <TextField fx:id="cb_hora" editable="false" layoutX="565.0" layoutY="170.0" prefHeight="26.0" prefWidth="174.0" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
