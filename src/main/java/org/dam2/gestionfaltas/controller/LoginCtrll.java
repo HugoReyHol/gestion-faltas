@@ -68,6 +68,7 @@ public class LoginCtrll {
         }
 
         MenuCtrll.profesor = profesor;
+        ((MenuCtrll) fxmlLoader.getController()).actualizarBotones();
 
         ((Stage) inNumero.getScene().getWindow()).setScene(scene);
 
