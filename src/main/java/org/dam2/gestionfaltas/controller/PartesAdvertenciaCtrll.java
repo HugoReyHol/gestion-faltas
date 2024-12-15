@@ -1,5 +1,9 @@
 package org.dam2.gestionfaltas.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,10 +13,18 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
+import org.dam2.gestionfaltas.model.Alumno;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class PartesAdvertenciaCtrll implements Initializable {
@@ -30,7 +42,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
     private Button bt_parteVerde;
 
     @FXML
-    private ComboBox<?> cb_hora;
+    private ComboBox<String> cb_hora;
 
     @FXML
     private DatePicker datePicker;
@@ -63,6 +75,10 @@ public class PartesAdvertenciaCtrll implements Initializable {
     private TextArea tx_sancion;
 
     private boolean esVerde = false;
+    private Alumno alumno;
+    private ObservableList<String> horas = FXCollections.observableArrayList();
+
+    private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl();
 
     @FXML
     void onCrear(ActionEvent event) {
@@ -116,6 +132,35 @@ public class PartesAdvertenciaCtrll implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         paneRojo.setVisible(false);
+
+        tf_profesor.setText(MenuCtrll.profesor.getNumeroAsignado());
+
+        ObjectMapper JSON_MAPPER = new ObjectMapper();
+
+        try {
+            Map<String, List<String>> json = JSON_MAPPER.readValue(
+                    new File("src/main/resources/variables_externas/horario.json"),
+                    new TypeReference<>() {
+                    });
+
+            horas.addAll(json.get("horas"));
+
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        cb_hora.setItems(horas);
+    }
+
+
+    public void onEscrito(KeyEvent keyEvent) {
+        try {
+            alumno = alumnoDAO.obtener(Integer.parseInt(tf_nExpediente.getText()));
+
+            if (alumno != null) tf_nombreGrupo.setText(alumno.getGrupo().getNombreGrupo());
+
+        }catch (Exception e) {}
+
     }
 }
 
