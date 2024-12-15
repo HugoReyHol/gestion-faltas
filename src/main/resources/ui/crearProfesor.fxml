@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.dam2.gestionfaltas.controller.CrearProfesorCtrll"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="486.0" prefWidth="872.0" style="-fx-background-color: #78ccec;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.CrearProfesorCtrll">
+   <children>
+      <fx:include source="vistaMenu.fxml" />
+      <AnchorPane layoutX="240.0" layoutY="56.0" prefHeight="444.0" prefWidth="413.0" style="-fx-background-color: #78ccec;">
+         <children>
+            <Label layoutX="112.0" layoutY="15.0" text="CREAR PROFESOR" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Line endX="299.0" layoutX="112.0" layoutY="50.0" startX="-96.5" />
+            <Label layoutX="15.0" layoutY="60.0" text="Nombre" />
+            <TextField fx:id="tfNombre" layoutX="15.0" layoutY="77.0" prefHeight="25.0" prefWidth="382.0" />
+            <TextField fx:id="tfNumeroAsignado" layoutX="15.0" layoutY="152.0" prefHeight="25.0" prefWidth="382.0" />
+            <ComboBox fx:id="cbTipo" layoutX="15.0" layoutY="325.0" prefHeight="25.0" prefWidth="382.0" />
+            <Label layoutX="18.0" layoutY="135.0" text="Número asignado" />
+            <Label layoutX="18.0" layoutY="218.0" text="Contraseña" />
+            <Label layoutX="18.0" layoutY="301.0" text="Tipo" />
+            <Label layoutX="18.0" layoutY="102.0" text="(El nombre no puede quedar vacío)" />
+            <Label layoutX="18.0" layoutY="177.0" text="(El número asignado es obligatorio)" />
+            <Label layoutX="18.0" layoutY="261.0" text="(La contraseña es obligatoria)" />
+            <Button fx:id="btCrearProfesor" layoutX="156.0" layoutY="399.0" mnemonicParsing="false" onAction="#onCrearProfesor" text="CREAR PROFESOR">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <PasswordField fx:id="tfContrasena" layoutX="15.0" layoutY="235.0" prefHeight="25.0" prefWidth="382.0" />
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

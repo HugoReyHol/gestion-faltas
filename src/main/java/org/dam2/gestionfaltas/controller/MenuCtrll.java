@@ -33,7 +33,7 @@ public class MenuCtrll implements Initializable {
 
     @FXML
     void onCrearProfesor(ActionEvent event) {
-        //CambiarVista.cambiarVistaBtt(".fxml", bt_crearParte, "Crear Profesor");
+        CambiarVista.cambiarVistaBtt("crearProfesor.fxml", bt_crearProfesor, "Crear Profesor");
     } // IR A LA VISTA DE CREAR PROFESORES
 
     @FXML
