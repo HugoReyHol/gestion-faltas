@@ -35,8 +35,8 @@ public class CrearProfesorCtrll implements Initializable {
     ProfesorDAOImpl profesorDAO=new ProfesorDAOImpl();
     @FXML
     void onCrearProfesor(ActionEvent event) {
-        if (tfNombre.getText().isEmpty() || tfNumeroAsignado.getText().isEmpty() ||
-                tfContrasena.getText().isEmpty() || cbTipo.getValue() == null) {
+        if (tfNombre.getText().isBlank() || tfNumeroAsignado.getText().isBlank() ||
+                tfContrasena.getText().isBlank() || cbTipo.getValue() == null) {
             System.out.println("Estan vacios");
         }else{
 
