@@ -74,6 +74,18 @@ public class Alumno {
         this.incidencias = incidencias;
     }
 
+    public int getPuntosAcumulados() {
+        int puntosAcumulados = 0;  // VARIABLE QUE GUARDA LOS PUNTOS ACUMULADOS
+        for (Incidencia incidencia : incidencias) {
+            if (incidencia.getIdPuntos() != null) {
+                // SUMAMOS LOS PUNTOS DE CADA INCIDENCIA
+                puntosAcumulados += incidencia.getIdPuntos().getPuntos();
+            } // SI LA INCIDENCIA TIENE UN ID DE PUNTOS ASOCIADO SUMAMOS LOS PUNTOS
+        } // ITERAMOS SOBRE LA LISTA DE INCIDENCIAS DEL ALUMNO
+
+        return puntosAcumulados; // RETORNAMOS EL TOTAL DE PUNTOS
+    } // METODO PARA CALCULAR LOS PUNTOS ACUMULADOS
+
     @Override
     public String toString() {
         return "Alumno{" +
