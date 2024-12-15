@@ -9,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.dam2.gestionfaltas.dao.ProfesorDAOImpl;
 import org.dam2.gestionfaltas.model.Profesor;
+import org.dam2.gestionfaltas.util.AlertUtil;
 import org.dam2.gestionfaltas.util.Tipos;
 
 import java.net.URL;
@@ -37,7 +38,8 @@ public class CrearProfesorCtrll implements Initializable {
     void onCrearProfesor(ActionEvent event) {
         if (tfNombre.getText().isBlank() || tfNumeroAsignado.getText().isBlank() ||
                 tfContrasena.getText().isBlank() || cbTipo.getValue() == null) {
-            System.out.println("Estan vacios");
+            AlertUtil.mostrarInfo("Rellene todos los campos");
+
         }else{
 
             Profesor profesor= new Profesor(tfContrasena.getText(),tfNombre.getText(),tfNumeroAsignado.getText(),Tipos.valueOf(cbTipo.getValue()));
