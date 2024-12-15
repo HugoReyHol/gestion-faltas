@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import org.dam2.gestionfaltas.dao.ProfesorDAOImpl;
 import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.AlertUtil;
+import org.dam2.gestionfaltas.util.Encriptador;
 import org.dam2.gestionfaltas.util.Tipos;
 
 import java.net.URL;
@@ -42,7 +43,7 @@ public class CrearProfesorCtrll implements Initializable {
 
         }else{
 
-            Profesor profesor= new Profesor(tfContrasena.getText(),tfNombre.getText(),tfNumeroAsignado.getText(),Tipos.valueOf(cbTipo.getValue()));
+            Profesor profesor= new Profesor(Encriptador.encriptar(tfContrasena.getText()),tfNombre.getText(),tfNumeroAsignado.getText(),Tipos.valueOf(cbTipo.getValue()));
             System.out.println(profesor);
             profesorDAO.crear(profesor);
         }
