@@ -13,7 +13,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -29,6 +28,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class PartesAdvertenciaCtrll implements Initializable {
+
+    @FXML
+    private AnchorPane anchoPaneParte;
 
     @FXML
     private Button bt_crear;
@@ -52,7 +54,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
     private Label lbTitulo;
 
     @FXML
-    private ComboBox<?> opcionesSancioncb;
+    private ComboBox<String> opcionesSancioncb;
 
     @FXML
     private Pane paneRojo;
@@ -77,7 +79,14 @@ public class PartesAdvertenciaCtrll implements Initializable {
 
     private Color color;
     private Alumno alumno;
-    private ObservableList<String> horas = FXCollections.observableArrayList();
+    private final ObservableList<String> horas = FXCollections.observableArrayList();
+    private final ObservableList<String> sanciones = FXCollections.observableArrayList(
+            "Incoación de expediente o en su caso \nexpediente abreviado",
+            "Reunión con la Comisión de Convivencia",
+            """
+            Es obligado pedir disculpas a la persona/as
+            contra las que se ejerció daño físico o moral,
+            y/o reparar los daños materiales causados""");
 
     private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl();
 
@@ -87,9 +96,6 @@ public class PartesAdvertenciaCtrll implements Initializable {
 
 
     }
-
-    @FXML
-    private AnchorPane anchoPaneParte;
 
     @FXML
     void onParteNaranja(ActionEvent event) {
@@ -120,7 +126,9 @@ public class PartesAdvertenciaCtrll implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        color = Color.VERDE;
+        onParteVerde(new ActionEvent());
+
+        opcionesSancioncb.setItems(sanciones);
 
         tf_profesor.setText(MenuCtrll.profesor.getNumeroAsignado());
 
