@@ -9,6 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.dam2.gestionfaltas.dao.ProfesorDAOImpl;
 import org.dam2.gestionfaltas.model.Profesor;
+import org.dam2.gestionfaltas.util.AlertUtil;
+import org.dam2.gestionfaltas.util.Encriptador;
 import org.dam2.gestionfaltas.util.Tipos;
 
 import java.net.URL;
@@ -35,12 +37,13 @@ public class CrearProfesorCtrll implements Initializable {
     ProfesorDAOImpl profesorDAO=new ProfesorDAOImpl();
     @FXML
     void onCrearProfesor(ActionEvent event) {
-        if (tfNombre.getText().isEmpty() || tfNumeroAsignado.getText().isEmpty() ||
-                tfContrasena.getText().isEmpty() || cbTipo.getValue() == null) {
-            System.out.println("Estan vacios");
+        if (tfNombre.getText().isBlank() || tfNumeroAsignado.getText().isBlank() ||
+                tfContrasena.getText().isBlank() || cbTipo.getValue() == null) {
+            AlertUtil.mostrarInfo("Rellene todos los campos");
+
         }else{
 
-            Profesor profesor= new Profesor(tfContrasena.getText(),tfNombre.getText(),tfNumeroAsignado.getText(),Tipos.valueOf(cbTipo.getValue()));
+            Profesor profesor= new Profesor(Encriptador.encriptar(tfContrasena.getText()),tfNombre.getText(),tfNumeroAsignado.getText(),Tipos.valueOf(cbTipo.getValue()));
             System.out.println(profesor);
             profesorDAO.crear(profesor);
         }
