@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="872.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.PartesAdvertenciaCtrll">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="872.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.PartesAdvertenciaCtrll">
 
     <children>
         <fx:include source="vistaMenu.fxml" />
@@ -29,7 +29,7 @@
               <Label layoutX="448.0" layoutY="221.0" text="Hora:" />
               <Line endX="645.0" layoutX="103.0" layoutY="151.0" startX="-100.0" />
               <Line endX="645.0" layoutX="103.0" layoutY="201.0" startX="-100.0" />
-              <TextField fx:id="tf_nExpediente" layoutX="165.0" layoutY="116.0" prefHeight="25.0" prefWidth="248.0" promptText="Escribe el número del expediente" />
+              <TextField fx:id="tf_nExpediente" layoutX="165.0" layoutY="116.0" onKeyTyped="#onEscrito" prefHeight="25.0" prefWidth="248.0" promptText="Escribe el número del expediente" />
               <DatePicker fx:id="datePicker" layoutX="165.0" layoutY="216.0" promptText="dd/mm/aa" />
               <ComboBox fx:id="cb_hora" layoutX="564.0" layoutY="216.0" prefHeight="25.0" prefWidth="174.0" />
               <Button id="greenBtt" fx:id="bt_parteVerde" layoutX="252.0" layoutY="64.0" mnemonicParsing="false" onAction="#onParteVerde" text="Parte Verde" textFill="WHITE">

@@ -2,6 +2,7 @@ package org.dam2.gestionfaltas.dao;
 
 import org.dam2.gestionfaltas.dao.interfaces.PuntosPartesDAO;
 import org.dam2.gestionfaltas.model.PuntosPartes;
+import org.dam2.gestionfaltas.util.Color;
 import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -87,6 +88,26 @@ public class PuntosPartesDAOImpl implements PuntosPartesDAO {
         try {
             transaction = session.beginTransaction();
             puntosPartes = (PuntosPartes) session.createQuery("from PuntosPartes where idPuntos = " + idPuntos).list().get(0);
+            transaction.commit();
+
+        } catch (Exception e) {
+            if(transaction != null) transaction.rollback();
+
+        }
+
+        return puntosPartes;
+    }
+
+    @Override
+    public PuntosPartes obtener(Color color) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+        PuntosPartes puntosPartes = null;
+
+        try {
+            transaction = session.beginTransaction();
+            puntosPartes = (PuntosPartes) session.createQuery("from PuntosPartes p where p.color = :color")
+                    .setParameter("color", color).list().get(0);
             transaction.commit();
 
         } catch (Exception e) {
