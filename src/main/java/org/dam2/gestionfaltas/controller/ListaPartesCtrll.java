@@ -5,15 +5,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
 import org.dam2.gestionfaltas.dao.IncidenciaDAOImpl;
 import org.dam2.gestionfaltas.model.Alumno;
 import org.dam2.gestionfaltas.model.Incidencia;
 import org.dam2.gestionfaltas.util.AlertUtil;
+import org.dam2.gestionfaltas.util.R;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -209,7 +215,19 @@ public class ListaPartesCtrll implements Initializable {
     } // INITIALIZABLE
 
     private void onVerMas(Incidencia incidencia) {
-        // TODO Logica para ver parte en ventana emergente
-        System.out.println(incidencia);
+        FXMLLoader fxmlLoader = new FXMLLoader(R.getUI("mostrarParte.fxml"));
+        Scene scene;
+        try {
+            scene = new Scene(fxmlLoader.load());
+
+            ((MostrarParteCtrll) fxmlLoader.getController()).setIncidencia(incidencia);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setTitle("Detalles incidencia");
+            stage.showAndWait();
+
+        } catch (IOException e) {}
     }
 }
