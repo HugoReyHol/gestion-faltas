@@ -63,6 +63,9 @@ public class ListaPartesCtrll implements Initializable {
     @FXML
     private TableColumn<Incidencia, String> sancionCol;
 
+    @FXML
+    private TableColumn<Incidencia, Button> colVerMas;
+
     private final IncidenciaDAOImpl incidenciaDAO = new IncidenciaDAOImpl(); // DAO PARA CONSULTAR DATOS
     private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl(); // DAO PARA CONSULTAR DATOS
     private static final int filasPorPagina = 10; // NÚMERO DE FILAS POR PÁGINA
@@ -180,6 +183,33 @@ public class ListaPartesCtrll implements Initializable {
         descripcionCol.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         sancionCol.setCellValueFactory(new PropertyValueFactory<>("sancion"));
 
+        // Configura colVerMas para tener un boton si la fila tiene una incidencia
+        colVerMas.setCellFactory(col -> new TableCell<>() {
+            private final Button boton = new Button("Ver más");
+
+            {
+                boton.getStyleClass().add("viewmore");
+                // Configurar el evento del botón
+                boton.setOnAction(event -> {
+                    Incidencia incidencia = getTableView().getItems().get(getIndex());
+                    onVerMas(incidencia);
+                });
+            }
+
+            @Override
+            protected void updateItem(Button b, boolean vacio) {
+                super.updateItem(b, vacio);
+
+                setGraphic(boton);
+
+            }
+        });
+
         configurarPaginacion(); // CONFIGURAR LA PAGINACIÓN
     } // INITIALIZABLE
+
+    private void onVerMas(Incidencia incidencia) {
+        // TODO Logica para ver parte en ventana emergente
+        System.out.println(incidencia);
+    }
 }
