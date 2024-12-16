@@ -205,8 +205,8 @@ public class ListaPartesCtrll implements Initializable {
             @Override
             protected void updateItem(Button b, boolean vacio) {
                 super.updateItem(b, vacio);
-
-                setGraphic(boton);
+                if(vacio) setGraphic(null);
+                else setGraphic(boton);
 
             }
         });

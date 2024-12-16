@@ -1,5 +1,6 @@
 package org.dam2.gestionfaltas.controller;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -135,7 +136,8 @@ public class ListaAlumnosCtrll implements Initializable {
         // CONFIGURAR COLUMNAS
         expedienteCol.setCellValueFactory(new PropertyValueFactory<>("numeroExpediente"));
         nombreAlumnoCol.setCellValueFactory(new PropertyValueFactory<>("nombreAlumno"));
-        nombreGrupoCol.setCellValueFactory(new PropertyValueFactory<>("grupo"));
+        nombreGrupoCol.setCellValueFactory(data ->
+                new ReadOnlyObjectWrapper<>(data.getValue().getGrupo().getNombreGrupo()));
         // Configuramos la columna de puntos acumulados
         puntosAcumuladosCol.setCellValueFactory(cellData -> {
             Alumno alumno = cellData.getValue();
