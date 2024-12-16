@@ -136,17 +136,12 @@ public class ListaPartesCtrll implements Initializable {
                 if (incidencia == null || empty) {
                     setStyle(""); // LIMPIAR ESTILO
                 } else {
-                    String sancion = incidencia.getSancion(); // SANCION
-                    if (sancion.equals("Expulsión")) {
-                        // SI ES EXPULSION -> COLOR ROJO
-                        setStyle("-fx-background-color: #ff6666;");
-                    } else if (sancion.equals("Suspensión")) {
-                        // SI ES SUSPENSION -> COLOR NARANJA
-                        setStyle("-fx-background-color: #ffcc66;");
-                    } else {
-                        // SI ES ADVERTENCIA -> COLOR VERDE
-                        setStyle("-fx-background-color: #99ff99;");
+                    switch (incidencia.getIdPuntos().getColor()) {
+                        case VERDE -> setStyle("-fx-background-color: #99ff99;");
+                        case NARANJA -> setStyle("-fx-background-color: #ffcc66;");
+                        case ROJO -> setStyle("-fx-background-color: #ff6666;");
                     }
+
                 } // SI LA INCIDENCIA ES NULO O ESTA VACIA SE LIMPIA EL ESTILO, SI NO, SE CAMBIA EL COLOR SEGUN LA SANCION
             } // ESTE METODO ES PARA ACTUALIZAR EL CONCENIDO DE LA FILA CUANDO SE ASIGNAN NUEVOS DATOS/CAMBIO DE ESTADO
         }); // setRowFactory
@@ -227,6 +222,8 @@ public class ListaPartesCtrll implements Initializable {
             stage.setScene(scene);
             stage.setTitle("Detalles incidencia");
             stage.showAndWait();
+
+            listaPartesTable.refresh();
 
         } catch (IOException e) {}
     }
