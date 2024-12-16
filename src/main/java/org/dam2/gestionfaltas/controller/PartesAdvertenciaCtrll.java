@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PartesAdvertenciaCtrll implements Initializable {
@@ -81,6 +83,11 @@ public class PartesAdvertenciaCtrll implements Initializable {
     @FXML
     private TextArea tx_sancion;
 
+
+    @FXML
+    private TextArea sancionOtraTxArea;
+
+
     private Color color;
     private Alumno alumno;
     private final ObservableList<String> horas = FXCollections.observableArrayList();
@@ -92,7 +99,8 @@ public class PartesAdvertenciaCtrll implements Initializable {
             """
             Es obligado pedir disculpas a la persona/as
             contra las que se ejerció daño físico o moral,
-            y/o reparar los daños materiales causados""");
+            y/o reparar los daños materiales causados""",
+            "Otro");
 
     private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl();
 
@@ -134,15 +142,24 @@ public class PartesAdvertenciaCtrll implements Initializable {
         System.out.println(puntosPartesDAO.obtener(color));
 
         if (color != Color.ROJO) {
-            incidencia.setSancion(tx_sancion.getText());
+            incidencia.setSancion(opcionesSancioncb.getValue());
 
-            if (incidencia.getSancion().isBlank() || tx_descripcion.getText().length() > 255) {
+            if (incidencia.getSancion().isBlank() || incidencia.getSancion().length() > 255) {
                 AlertUtil.mostrarInfo("La sanción debe ser menor a 255 carácteres y contener texto");
                 return;
             }
 
         }else {
             incidencia.setSancion(opcionesSancioncb.getValue());
+
+            // Comprueba si es otro o no
+            if(opcionesSancioncb.getValue().equals(sanciones.toArray()[sanciones.size()-1])){
+                incidencia.setSancion(sancionOtraTxArea.getText());
+
+            } else {
+                incidencia.setSancion(tx_sancion.getText());
+
+            }
 
             if (incidencia.getSancion() == null) {
                 AlertUtil.mostrarInfo("Debe elegir una sanción");
@@ -218,6 +235,15 @@ public class PartesAdvertenciaCtrll implements Initializable {
 
         }catch (Exception e) {}
 
+    }
+
+    @FXML
+    void onClickSancionAction(ActionEvent event) {
+        if(Objects.equals(opcionesSancioncb.getValue(), sanciones.toArray()[sanciones.size()-1])){
+            sancionOtraTxArea.setVisible(true);
+        } else {
+            sancionOtraTxArea.setVisible(false);
+        }
     }
 }
 
