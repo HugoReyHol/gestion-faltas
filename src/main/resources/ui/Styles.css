@@ -1,0 +1,60 @@
+#anchor-pane{
+    -fx-background-color: #b0acac; /* COLOR DE FONDO DEL ANCHOR PANE GRIS */
+}
+
+#vBox_Login {
+    -fx-border-radius: 10; /* BORDE RADIO DEL VBOX A 10 */
+    -fx-background-radius: 10; /* BORDE DEL FONDO DEL VBOX A 10 */
+    -fx-background-color: #ffffff; /* COLOR DE FONDO DEL VBOX */
+}
+
+#loginBtt{
+    -fx-background-color: #0d6efd; /* COLOR DEL FONDO DEL BOTON AZUL */
+    -fx-text-fill: #ffffff; /* COLOR DEL TEXTO DENTRO DEL BOTON BLANCO */
+}
+
+.menuBtt{
+    -fx-background-color: #ffffff;
+}
+
+
+
+/****************** PARTES ADVERTENCIA ************************/
+#anchorPane_Partes{
+    -fx-background-color:  #befc77;
+}
+
+#greenBtt{
+    -fx-background-color: green;
+}
+
+#redBtt{
+    -fx-background-color: red;
+}
+
+#orangeBtt{
+    -fx-background-color:  orange;
+}
+
+#crearBtt{
+    -fx-background-color: #4ba0ce;
+}
+
+
+
+/****************** LISTA PARTES ************************/
+.paneAzulParte{
+    -fx-background-color: #72cae8;
+    -fx-background-radius: 12;
+}
+
+.buttons{
+    -fx-background-color: #198754;
+    -fx-text-fill: #ffffff;
+}
+
+.viewmore{
+    -fx-background-color: #0d6efd; /* COLOR DEL FONDO DEL BOTON AZUL */
+    -fx-text-fill: #ffffff; /* COLOR DEL TEXTO DENTRO DEL BOTON BLANCO */
+}
+
