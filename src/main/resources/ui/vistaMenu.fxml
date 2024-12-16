@@ -24,6 +24,7 @@
             <Button fx:id="bt_listaPartes" layoutX="135.0" layoutY="12.0" mnemonicParsing="false" onAction="#onListaPartes" styleClass="menuBtt" text="Lista de Partes" />
             <Button fx:id="bt_listaAlumnos" layoutX="227.0" layoutY="12.0" mnemonicParsing="false" onAction="#onListaAlumnos" styleClass="menuBtt" text="Lista de Alumnos" />
             <Button fx:id="bt_crearProfesor" layoutX="336.0" layoutY="12.0" mnemonicParsing="false" onAction="#onCrearProfesor" styleClass="menuBtt" text="Crear Profesor" />
+            <Button fx:id="bt_cerrarSesion" layoutX="766.0" layoutY="12.0" mnemonicParsing="false" onAction="#onCerrarSesionAction" style="-fx-background-color: #f57676;" styleClass="menuBtt" text="Cerrar sesión" />
          </children>
       </Pane>
    </children>

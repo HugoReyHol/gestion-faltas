@@ -6,7 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.CambiarVista;
+import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.dam2.gestionfaltas.util.Tipos;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,6 +25,9 @@ public class MenuCtrll implements Initializable {
 
     @FXML
     private Button bt_listaPartes;
+
+    @FXML
+    private Button bt_cerrarSesion;
 
     public static Profesor profesor;
 
@@ -54,6 +59,12 @@ public class MenuCtrll implements Initializable {
 
         }
     }
+
+    @FXML
+    void onCerrarSesionAction(ActionEvent event) {
+        profesor = null; // DESHABILITAR PROFESOR
+        CambiarVista.cambiarVistaBtt("login.fxml", bt_cerrarSesion, "Iniciar sesion"); // IR A LA VISTA LOGIN
+    } // BOTON PARA CERRAR SESSION
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
