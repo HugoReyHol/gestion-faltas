@@ -232,6 +232,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
             alumno = alumnoDAO.obtener(Integer.parseInt(tf_nExpediente.getText()));
 
             if (alumno != null) tf_nombreGrupo.setText(alumno.getGrupo().getNombreGrupo());
+            else tf_nombreGrupo.clear();
 
         }catch (Exception e) {}
 
