@@ -22,6 +22,7 @@ public class HibernateUtil {
         cfg.addAnnotatedClass(Profesor.class);
         cfg.addAnnotatedClass(PuntosPartes.class);
         cfg.addAnnotatedClass(Incidencia.class);
+        cfg.addAnnotatedClass(Hora.class);
 
         try {
             factory = cfg.buildSessionFactory();
