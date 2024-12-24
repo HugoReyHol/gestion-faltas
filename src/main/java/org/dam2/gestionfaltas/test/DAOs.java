@@ -1,6 +1,7 @@
 package org.dam2.gestionfaltas.test;
 
 import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
+import org.dam2.gestionfaltas.dao.HoraDAOImpl;
 import org.dam2.gestionfaltas.dao.ProfesorDAOImpl;
 import org.dam2.gestionfaltas.model.Alumno;
 import org.dam2.gestionfaltas.model.Profesor;
@@ -25,5 +26,11 @@ public class DAOs {
         System.out.println(alumnoDAO.listar());
         System.out.println("Prueba limitando");
         System.out.println(alumnoDAO.listar(2, 5));
+
+        HoraDAOImpl horaDAO = new HoraDAOImpl();
+
+        System.out.println(horaDAO.obtener(1));
+        System.out.println(horaDAO.listar());
+
     }
 }

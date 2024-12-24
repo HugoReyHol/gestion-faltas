@@ -18,9 +18,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
+import org.dam2.gestionfaltas.dao.HoraDAOImpl;
 import org.dam2.gestionfaltas.dao.IncidenciaDAOImpl;
 import org.dam2.gestionfaltas.dao.PuntosPartesDAOImpl;
 import org.dam2.gestionfaltas.model.Alumno;
+import org.dam2.gestionfaltas.model.Hora;
 import org.dam2.gestionfaltas.model.Incidencia;
 import org.dam2.gestionfaltas.util.AlertUtil;
 import org.dam2.gestionfaltas.util.Color;
@@ -103,6 +105,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
             "Otro");
 
     private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl();
+    private final HoraDAOImpl horaDAO = new HoraDAOImpl();
 
     @FXML
     void onCrear(ActionEvent event) {
@@ -123,9 +126,9 @@ public class PartesAdvertenciaCtrll implements Initializable {
             return;
         }
 
-        incidencia.setHora(cb_hora.getValue());
+        incidencia.setIdHora(horaDAO.obtener(cb_hora.getValue()));
 
-        if (incidencia.getHora() == null) {
+        if (incidencia.getIdHora() == null) {
             AlertUtil.mostrarInfo("Debe elegir una hora");
             return;
         }
@@ -142,7 +145,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
         System.out.println(puntosPartesDAO.obtener(color));
 
         if (color != Color.ROJO) {
-            incidencia.setSancion(opcionesSancioncb.getValue());
+            incidencia.setSancion(tx_sancion.getText());
 
             if (incidencia.getSancion().isBlank() || incidencia.getSancion().length() > 255) {
                 AlertUtil.mostrarInfo("La sanción debe ser menor a 255 carácteres y contener texto");
@@ -209,18 +212,8 @@ public class PartesAdvertenciaCtrll implements Initializable {
 
         tf_profesor.setText(MenuCtrll.profesor.getNumeroAsignado());
 
-        ObjectMapper JSON_MAPPER = new ObjectMapper();
-
-        try {
-            Map<String, List<String>> json = JSON_MAPPER.readValue(
-                    new File("src/main/resources/variables_externas/horario.json"),
-                    new TypeReference<>() {
-                    });
-
-            horas.addAll(json.get("horas"));
-
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+        for (Hora h: horaDAO.listar()) {
+            horas.add(h.getHora());
         }
 
         cb_hora.setItems(horas);

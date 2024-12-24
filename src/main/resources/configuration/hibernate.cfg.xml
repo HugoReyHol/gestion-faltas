@@ -17,5 +17,6 @@
      	<mapping class="org.dam2.gestionfaltas.model.Profesor"/>
      	<mapping class="org.dam2.gestionfaltas.model.PuntosPartes"/>
      	<mapping class="org.dam2.gestionfaltas.model.Incidencia"/>
+     	<mapping class="org.dam2.gestionfaltas.model.Hora"/>
     </session-factory>
 </hibernate-configuration>

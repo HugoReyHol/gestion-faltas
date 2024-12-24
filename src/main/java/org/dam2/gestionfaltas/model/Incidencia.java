@@ -19,9 +19,6 @@ public class Incidencia {
     @Column(name = "fecha")
     private LocalDate fecha;
 
-    @Column(name = "hora")
-    private String hora;
-
     @Column(name = "sancion")
     private String sancion;
 
@@ -37,13 +34,16 @@ public class Incidencia {
     @JoinColumn(name = "id_puntos", referencedColumnName = "id_puntos")
     private PuntosPartes idPuntos;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_hora", referencedColumnName = "id_hora")
+    private Hora idHora;
+
     public Incidencia() {
     }
 
     public Incidencia(String descripcion, LocalDate fecha, String hora, String sancion) {
         this.descripcion = descripcion;
         this.fecha = fecha;
-        this.hora = hora;
         this.sancion = sancion;
     }
 
@@ -71,12 +71,12 @@ public class Incidencia {
         this.fecha = fecha;
     }
 
-    public String getHora() {
-        return hora;
+    public Hora getIdHora() {
+        return idHora;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setIdHora(Hora idHora) {
+        this.idHora = idHora;
     }
 
     public String getSancion() {
@@ -117,7 +117,7 @@ public class Incidencia {
                 "idParte=" + idParte +
                 ", descripcion='" + descripcion + '\'' +
                 ", fecha=" + fecha +
-                ", hora='" + hora + '\'' +
+                ", hora='" + idHora + '\'' +
                 ", sancion='" + sancion + '\'' +
                 ", idAlumno=" + idAlumno +
                 ", idProfesor=" + idProfesor +
