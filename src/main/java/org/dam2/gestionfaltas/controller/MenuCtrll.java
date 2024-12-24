@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.CambiarVista;
-import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.dam2.gestionfaltas.util.Tipos;
 
 import java.net.URL;
