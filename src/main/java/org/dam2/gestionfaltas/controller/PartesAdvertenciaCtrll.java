@@ -123,12 +123,12 @@ public class PartesAdvertenciaCtrll implements Initializable {
             return;
         }
 
-        incidencia.setHora(cb_hora.getValue());
-
-        if (incidencia.getHora() == null) {
-            AlertUtil.mostrarInfo("Debe elegir una hora");
-            return;
-        }
+//        incidencia.setHora(cb_hora.getValue());
+//
+//        if (incidencia.getHora() == null) {
+//            AlertUtil.mostrarInfo("Debe elegir una hora");
+//            return;
+//        }
 
         if (tx_descripcion.getText().isBlank() || tx_descripcion.getText().length() > 255) {
             AlertUtil.mostrarInfo("La descripción debe ser menor a 255 carácteres y contener texto");

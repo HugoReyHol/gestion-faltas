@@ -74,7 +74,7 @@ public class MostrarParteCtrll implements Initializable {
         tf_nExpediente.setText(String.valueOf(incidencia.getIdAlumno().getNumeroExpediente()));
 
         datePicker.setValue(incidencia.getFecha());
-        cb_hora.setValue(incidencia.getHora());
+//        cb_hora.setValue(incidencia.getHora());
         tx_descripcion.setText(incidencia.getDescripcion());
 
         tf_profesor.setText(incidencia.getIdProfesor().getNumeroAsignado());
@@ -141,12 +141,12 @@ public class MostrarParteCtrll implements Initializable {
             return;
         }
 
-        incidencia.setHora(cb_hora.getValue());
+//        incidencia.setHora(cb_hora.getValue());
 
-        if (incidencia.getHora() == null) {
-            AlertUtil.mostrarInfo("Debe elegir una hora");
-            return;
-        }
+//        if (incidencia.getHora() == null) {
+//            AlertUtil.mostrarInfo("Debe elegir una hora");
+//            return;
+//        }
 
         if (tx_descripcion.getText().isBlank() || tx_descripcion.getText().length() > 255) {
             AlertUtil.mostrarInfo("La descripción debe ser menor a 255 carácteres y contener texto");
