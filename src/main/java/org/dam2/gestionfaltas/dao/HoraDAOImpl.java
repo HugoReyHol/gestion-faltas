@@ -29,6 +29,25 @@ public class HoraDAOImpl implements HoraDAO {
     }
 
     @Override
+    public Hora obtener(String hora) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+        Hora h = null;
+
+        try {
+            transaction = session.beginTransaction();
+            h = (Hora) session.createQuery("from Hora where hora = '" + hora + "'").list().get(0);
+            transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+
+        }
+
+        return h;
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<Hora> listar() {
         Session session = HibernateUtil.getSession();
