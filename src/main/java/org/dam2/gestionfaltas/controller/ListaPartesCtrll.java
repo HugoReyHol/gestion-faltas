@@ -1,5 +1,6 @@
 package org.dam2.gestionfaltas.controller;
 
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
@@ -26,69 +28,75 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ListaPartesCtrll implements Initializable {
-
+    @FXML
+    private Button recargarTablaBtt;
+    @FXML
+    private AnchorPane anchorPane;
     @FXML
     private Button buscarFechaBtt;
-
     @FXML
     private Button buscarNumExpBtt;
-
     @FXML
     private TableColumn<Incidencia, String> descripcionCol;
-
     @FXML
     private TableColumn<Incidencia, Integer> expedienteCol;
-
     @FXML
     private TableColumn<Incidencia, String> fechaCol;
-
     @FXML
     private DatePicker fechaFinalDP;
-
     @FXML
     private DatePicker fechaInicioDP;
-
     @FXML
     private TableColumn<Incidencia, String> grupoCol;
-
     @FXML
     private TableView<Incidencia> listaPartesTable;
-
     @FXML
     private TableColumn<Incidencia, String> nombreAlumnoCol;
-
     @FXML
     private TextField numExpedienteTF;
-
     @FXML
     private Pagination pagination;
-
     @FXML
     private TableColumn<Incidencia, String> profesorCol;
-
     @FXML
     private TableColumn<Incidencia, String> sancionCol;
-
     @FXML
     private TableColumn<Incidencia, Button> colVerMas;
 
     private final IncidenciaDAOImpl incidenciaDAO = new IncidenciaDAOImpl(); // DAO PARA CONSULTAR DATOS
     private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl(); // DAO PARA CONSULTAR DATOS
-    private static final int filasPorPagina = 10; // NÚMERO DE FILAS POR PÁGINA
-
+    private static final int filasPorPagina = 5; // NÚMERO DE FILAS POR PÁGINA
 
     @FXML
     void onBuscarFechaAction(ActionEvent event) {
         LocalDate fechaInicio = fechaInicioDP.getValue();
         LocalDate fechaFin = fechaFinalDP.getValue();
 
-        if (fechaInicio != null && fechaFin != null) {
+        if (fechaInicio != null && fechaFin == null) { // BUSCADO POR FECHA CONCRETA
             // OBTENER LAS INCIDENCIAS FILTRADAS POR FECHAS
-            List<Incidencia> incidenciasFechas = incidenciaDAO.listarPorFechas(fechaInicio, fechaFin);
+            List<Incidencia> incidenciasFechas = incidenciaDAO.listarPorFechaConcreta(fechaInicio);
+
+            // CREAR UN OBSERVABLELIST CON LAS INCIDENCIAS
+            ObservableList<Incidencia> datos = FXCollections.observableArrayList(incidenciasFechas);
+            listaPartesTable.setItems(datos);
+        } else if (fechaInicio == null && fechaFin != null) {// BUSCADO POR FECHA CONCRETA
+            // OBTENER LAS INCIDENCIAS FILTRADAS POR FECHAS
+            List<Incidencia> incidenciasFechas = incidenciaDAO.listarPorFechaConcreta(fechaFin);
 
             // CREAR UN OBSERVABLELIST CON LAS INCIDENCIAS
             ObservableList<Incidencia> datos = FXCollections.observableArrayList(incidenciasFechas);
             listaPartesTable.setItems(datos);  // ESTABLECER LOS DATOS EN LA TABLA
+        } else if(fechaInicio != null) {
+            if (fechaInicio.isBefore(fechaFin)) {
+                // OBTENER LAS INCIDENCIAS FILTRADAS POR FECHAS
+                List<Incidencia> incidenciasFechas = incidenciaDAO.listarPorFechas(fechaInicio,fechaFin);
+
+                // CREAR UN OBSERVABLELIST CON LAS INCIDENCIAS
+                ObservableList<Incidencia> datos = FXCollections.observableArrayList(incidenciasFechas);
+                listaPartesTable.setItems(datos);
+            } else {
+                AlertUtil.mostrarError("La primera fecha debe ser menor que la segunda.");
+            }
         } else {
             AlertUtil.mostrarError("Debe seleccionar un rango de fechas.");
         } // SI LAS FECHAS NO SON NULAS, SE BUSCA
@@ -162,10 +170,22 @@ public class ListaPartesCtrll implements Initializable {
 
         refreshTable(0); // CARGAR LA PRIMERA PÁGINA
     } // CONFIGURAR PAGINACION
+    public void centrarTextoCeldas() {
+        expedienteCol.setStyle("-fx-alignment: CENTER");
+        nombreAlumnoCol.setStyle("-fx-alignment: CENTER");
+        colVerMas.setStyle("-fx-alignment: CENTER");
+        descripcionCol.setStyle("-fx-alignment: CENTER");
+        fechaCol.setStyle("-fx-alignment: CENTER");
+        grupoCol.setStyle("-fx-alignment: CENTER");
+        profesorCol.setStyle("-fx-alignment: CENTER");
+        sancionCol.setStyle("-fx-alignment: CENTER");
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //imageView.fitWidthProperty().bind(anchorPane.widthProperty());
+        //imageView.fitHeightProperty().bind(anchorPane.heightProperty());
         // CONFIGURAR COLUMNAS
         /**NOTA: para configurar como se obtiene el valor de una celda en una columna se utiliza una función lambda
          * con un objeto de tipo ReadOnlyObjectWrapper<S>, que se utiliza para encapsular el valor que se mostrará
@@ -207,9 +227,11 @@ public class ListaPartesCtrll implements Initializable {
         });
 
         configurarPaginacion(); // CONFIGURAR LA PAGINACIÓN
+        centrarTextoCeldas();
     } // INITIALIZABLE
 
     private void onVerMas(Incidencia incidencia) {
+
         FXMLLoader fxmlLoader = new FXMLLoader(R.getUI("mostrarParte.fxml"));
         Scene scene;
         try {
@@ -226,5 +248,9 @@ public class ListaPartesCtrll implements Initializable {
             listaPartesTable.refresh();
 
         } catch (IOException e) {}
+    }
+
+    public void onRecargarAction(ActionEvent event) {
+        configurarPaginacion();
     }
 }

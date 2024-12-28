@@ -58,3 +58,7 @@
     -fx-text-fill: #ffffff; /* COLOR DEL TEXTO DENTRO DEL BOTON BLANCO */
 }
 
+.table-view .table-row-cell {
+    -fx-pref-height: 40px;  /* Ajusta la altura de las filas */
+    -fx-font-size: 16px;    /* Cambia el tamaño de la letra */
+}
