@@ -13,11 +13,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
-import org.dam2.gestionfaltas.dao.IncidenciaDAOImpl;
-import org.dam2.gestionfaltas.dao.ProfesorDAOImpl;
-import org.dam2.gestionfaltas.dao.PuntosPartesDAOImpl;
+import org.dam2.gestionfaltas.dao.*;
 import org.dam2.gestionfaltas.model.Alumno;
+import org.dam2.gestionfaltas.model.Hora;
 import org.dam2.gestionfaltas.model.Incidencia;
 import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.AlertUtil;
@@ -65,7 +63,8 @@ public class MostrarParteCtrll implements Initializable {
     private Color color;
     private Alumno alumno;
     private Incidencia incidencia;
-    private AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl();
+    private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl();
+    private final HoraDAOImpl horaDAO = new HoraDAOImpl();
     private final ObservableList<String> horas = FXCollections.observableArrayList();
     private final ObservableList<String> sanciones = FXCollections.observableArrayList(
             """
@@ -88,7 +87,7 @@ public class MostrarParteCtrll implements Initializable {
         tf_nExpediente.setText(String.valueOf(incidencia.getIdAlumno().getNumeroExpediente()));
 
         datePicker.setValue(incidencia.getFecha());
-        cb_hora.setValue(incidencia.getHora());
+        cb_hora.setValue(incidencia.getIdHora().getHora());
         tx_descripcion.setText(incidencia.getDescripcion());
 
         tf_profesor.setText(incidencia.getIdProfesor().getNumeroAsignado());
@@ -155,9 +154,9 @@ public class MostrarParteCtrll implements Initializable {
             return;
         }
 
-        incidencia.setHora(cb_hora.getValue());
+        incidencia.setIdHora(horaDAO.obtener(cb_hora.getValue()));
 
-        if (incidencia.getHora() == null) {
+        if (incidencia.getIdHora() == null) {
             AlertUtil.mostrarInfo("Debe elegir una hora");
             return;
         }
@@ -219,18 +218,8 @@ public class MostrarParteCtrll implements Initializable {
         });
         opcionesSancioncb.setItems(sanciones);
 
-        ObjectMapper JSON_MAPPER = new ObjectMapper();
-
-        try {
-            Map<String, List<String>> json = JSON_MAPPER.readValue(
-                    new File("src/main/resources/variables_externas/horario.json"),
-                    new TypeReference<>() {
-                    });
-
-            horas.addAll(json.get("horas"));
-
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+        for (Hora h: horaDAO.listar()) {
+            horas.add(h.getHora());
         }
 
         cb_hora.setItems(horas);
