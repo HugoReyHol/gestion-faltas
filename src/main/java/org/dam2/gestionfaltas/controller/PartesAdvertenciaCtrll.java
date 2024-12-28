@@ -2,6 +2,7 @@ package org.dam2.gestionfaltas.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,59 +37,40 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PartesAdvertenciaCtrll implements Initializable {
-
     @FXML
-    private AnchorPane anchoPaneParte;
-
+    private AnchorPane anchorPaneParte;
     @FXML
     private Button bt_crear;
-
     @FXML
     private Button bt_parteNaranja;
-
     @FXML
     private Button bt_parteRojo;
-
     @FXML
     private Button bt_parteVerde;
-
     @FXML
     private ComboBox<String> cb_hora;
-
     @FXML
     private DatePicker datePicker;
-
     @FXML
     private Label lbTitulo;
-
     @FXML
     private ComboBox<String> opcionesSancioncb;
-
     @FXML
     private Pane paneRojo;
-
     @FXML
     private Pane paneVerde;
-
     @FXML
     private TextField tf_nExpediente;
-
     @FXML
     private TextField tf_nombreGrupo;
-
     @FXML
     private TextField tf_profesor;
-
     @FXML
     private TextArea tx_descripcion;
-
     @FXML
     private TextArea tx_sancion;
-
-
     @FXML
     private TextArea sancionOtraTxArea;
-
 
     private Color color;
     private Alumno alumno;
@@ -180,7 +162,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
     void onParteNaranja(ActionEvent event) {
         paneRojo.setVisible(false);
         paneVerde.setVisible(true);
-        anchoPaneParte.setStyle("-fx-background-color: orange;");
+        anchorPaneParte.setStyle("-fx-background-color:#FFA500");
         lbTitulo.setText("PARTE NARANJA DE ADVERTENCIA");
         color = Color.NARANJA;
     }
@@ -189,7 +171,7 @@ public class PartesAdvertenciaCtrll implements Initializable {
     void onParteRojo(ActionEvent event) {
         paneRojo.setVisible(true);
         paneVerde.setVisible(false);
-        anchoPaneParte.setStyle("-fx-background-color: red;");
+        anchorPaneParte.setStyle("-fx-background-color:#E64942");
         lbTitulo.setText("PARTE ROJO DE ADVERTENCIA");
         color = Color.ROJO;
     }
@@ -198,13 +180,14 @@ public class PartesAdvertenciaCtrll implements Initializable {
     void onParteVerde(ActionEvent event) {
         paneRojo.setVisible(false);
         paneVerde.setVisible(true);
-        anchoPaneParte.setStyle("-fx-background-color: green;");
+        anchorPaneParte.setStyle("-fx-background-color: #befc77");
         lbTitulo.setText("PARTE VERDE DE ADVERTENCIA");
         color = Color.VERDE;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         onParteVerde(new ActionEvent());
         System.out.println(color);
 
