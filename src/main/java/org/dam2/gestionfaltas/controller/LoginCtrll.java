@@ -1,11 +1,16 @@
 package org.dam2.gestionfaltas.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.dam2.gestionfaltas.dao.ProfesorDAOImpl;
 import org.dam2.gestionfaltas.model.Profesor;
@@ -14,18 +19,24 @@ import org.dam2.gestionfaltas.util.Encriptador;
 import org.dam2.gestionfaltas.util.R;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class LoginCtrll {
+public class LoginCtrll implements Initializable {
 
     @FXML
     public TextField inNumero;
-
     @FXML
     public PasswordField inContrasena;
+    @FXML
+    public AnchorPane anchorPane;
+    @FXML
+    public ImageView imageView;
+    @FXML
+    public VBox verticalBox;
 
     private final ProfesorDAOImpl profesorDAO = new ProfesorDAOImpl();
-
 
     public void onLogIn(ActionEvent actionEvent) {
         // Comprueba si los campos están vacios
@@ -72,5 +83,15 @@ public class LoginCtrll {
 
         ((Stage) inNumero.getScene().getWindow()).setScene(scene);
 
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        imageView.fitWidthProperty().bind(anchorPane.widthProperty());
+        imageView.fitHeightProperty().bind(anchorPane.heightProperty());
+        Platform.runLater(() -> {
+            verticalBox.layoutXProperty().bind(anchorPane.widthProperty().subtract(verticalBox.widthProperty()).divide(2));
+            verticalBox.layoutYProperty().bind(anchorPane.heightProperty().subtract(verticalBox.heightProperty()).divide(2.2));
+        });
     }
 }
