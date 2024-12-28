@@ -2,6 +2,7 @@ package org.dam2.gestionfaltas.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,7 +13,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.controlsfx.tools.Platform;
 import org.dam2.gestionfaltas.dao.*;
 import org.dam2.gestionfaltas.model.Alumno;
 import org.dam2.gestionfaltas.model.Hora;
@@ -31,19 +31,33 @@ import java.util.ResourceBundle;
 
 
 public class MostrarParteCtrll implements Initializable {
-    public AnchorPane anchoPaneParte;
-    public Label lbTitulo;
-    public TextField tf_nExpediente;
-    public DatePicker datePicker;
-    public ComboBox<String> cb_hora;
-    public TextArea tx_descripcion;
-    public TextField tf_profesor;
-    public TextField tf_nombreGrupo;
-    public Pane paneVerde;
-    public TextArea tx_sancion;
-    public Pane paneRojo;
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private AnchorPane anchorPaneParte;
+    @FXML
+    private Label lbTitulo;
+    @FXML
+    private TextField tf_nExpediente;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private ComboBox<String> cb_hora;
+    @FXML
+    private TextArea tx_descripcion;
+    @FXML
+    private TextField tf_profesor;
+    @FXML
+    private TextField tf_nombreGrupo;
+    @FXML
+    private Pane paneVerde;
+    @FXML
+    private TextArea tx_sancion;
+    @FXML
+    private Pane paneRojo;
     @FXML
     private TextArea sancionOtraTxArea;
+
     public ComboBox<String> opcionesSancioncb;
 
     private Color color;
@@ -93,17 +107,17 @@ public class MostrarParteCtrll implements Initializable {
             case VERDE -> {
                 paneVerde.setVisible(true);
                 paneRojo.setVisible(false);
-                anchoPaneParte.setStyle("-fx-background-color: green;");
+                anchorPaneParte.setStyle("-fx-background-color: #befc77");
             }
             case NARANJA -> {
                 paneVerde.setVisible(true);
                 paneRojo.setVisible(false);
-                anchoPaneParte.setStyle("-fx-background-color: orange;");
+                anchorPaneParte.setStyle("-fx-background-color: #FFA500");
             }
             case ROJO -> {
                 paneVerde.setVisible(false);
                 paneRojo.setVisible(true);
-                anchoPaneParte.setStyle("-fx-background-color: red;");
+                anchorPaneParte.setStyle("-fx-background-color: #E64942");
             }
         }
     }
@@ -198,6 +212,10 @@ public class MostrarParteCtrll implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(() -> {
+            anchorPaneParte.layoutXProperty().bind(anchorPane.widthProperty().subtract(anchorPaneParte.widthProperty()).divide(2));
+            anchorPaneParte.layoutYProperty().bind(anchorPane.heightProperty().subtract(anchorPaneParte.heightProperty()).divide(2));
+        });
         opcionesSancioncb.setItems(sanciones);
 
         for (Hora h: horaDAO.listar()) {
@@ -221,7 +239,7 @@ public class MostrarParteCtrll implements Initializable {
     void onParteNaranja(ActionEvent event) {
         paneRojo.setVisible(false);
         paneVerde.setVisible(true);
-        anchoPaneParte.setStyle("-fx-background-color: orange;");
+        anchorPaneParte.setStyle("-fx-background-color:#FFA500");
         lbTitulo.setText("PARTE NARANJA DE ADVERTENCIA");
         color = Color.NARANJA;
     }
@@ -230,7 +248,7 @@ public class MostrarParteCtrll implements Initializable {
     void onParteRojo(ActionEvent event) {
         paneRojo.setVisible(true);
         paneVerde.setVisible(false);
-        anchoPaneParte.setStyle("-fx-background-color: red;");
+        anchorPaneParte.setStyle("-fx-background-color:#E64942");
         lbTitulo.setText("PARTE ROJO DE ADVERTENCIA");
         color = Color.ROJO;
     }
@@ -239,7 +257,7 @@ public class MostrarParteCtrll implements Initializable {
     void onParteVerde(ActionEvent event) {
         paneRojo.setVisible(false);
         paneVerde.setVisible(true);
-        anchoPaneParte.setStyle("-fx-background-color: green;");
+        anchorPaneParte.setStyle("-fx-background-color: #befc77");
         lbTitulo.setText("PARTE VERDE DE ADVERTENCIA");
         color = Color.VERDE;
     }

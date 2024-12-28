@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableRow;
+import javafx.scene.layout.AnchorPane;
 import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
 import org.dam2.gestionfaltas.model.Alumno;
 import org.dam2.gestionfaltas.util.AlertUtil;
@@ -19,33 +20,29 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ListaAlumnosCtrll implements Initializable {
-
+    @FXML
+    private Button recargarTablaBtt;
+    @FXML
+    private AnchorPane anchorPane;
     @FXML
     private Button buscarNumExpBtt;
-
     @FXML
     private TableColumn<Alumno, Integer> expedienteCol;
-
     @FXML
     private TableView<Alumno> listaAlumnosTable;
-
     @FXML
     private TableColumn<Alumno, String> nombreAlumnoCol;
-
     @FXML
     private TableColumn<Alumno, String> nombreGrupoCol;
-
     @FXML
     private TextField numExpedienteTF;
-
     @FXML
     private Pagination pagination;
-
     @FXML
     private TableColumn<Alumno, Integer> puntosAcumuladosCol;
 
     private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl(); // DAO PARA CONSULTAR DATOS
-    private static final int filasPorPagina = 10; // NÚMERO DE FILAS POR PÁGINA
+    private static final int filasPorPagina = 5; // NÚMERO DE FILAS POR PÁGINA
 
     @FXML
     void onBuscarNumExpAction(ActionEvent event) {
@@ -131,6 +128,15 @@ public class ListaAlumnosCtrll implements Initializable {
         refreshTable(0); // CARGAR LA PRIMERA PÁGINA
     } // CONFIGURAR PAGINACION
 
+    public void centrarTextoCeldas() {
+        expedienteCol.setStyle("-fx-alignment: CENTER");
+        nombreAlumnoCol.setStyle("-fx-alignment: CENTER");
+        puntosAcumuladosCol.setStyle("-fx-alignment: CENTER");
+        nombreGrupoCol.setStyle("-fx-alignment: CENTER");
+    }
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // CONFIGURAR COLUMNAS
@@ -145,5 +151,10 @@ public class ListaAlumnosCtrll implements Initializable {
         });
 
         configurarPaginacion(); // CONFIGURAR LA PAGINACIÓN
+        centrarTextoCeldas();
     } // INITIALIZABLE
+
+    public void onRecargarAction(ActionEvent event) {
+        configurarPaginacion();
+    }
 }

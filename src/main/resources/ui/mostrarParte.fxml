@@ -11,66 +11,126 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchorPane_Partes" fx:id="anchoPaneParte" prefHeight="452.0" prefWidth="704.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.MostrarParteCtrll">
-   <children>
-      <Label fx:id="lbTitulo" layoutX="178.0" layoutY="17.0" text="PARTE VERDE DE ADVERTENCIA">
-         <font>
-            <Font name="System Bold" size="27.0" />
-         </font>
-      </Label>
-      <Label layoutX="23.0" layoutY="109.0" prefHeight="39.0" prefWidth="127.0" text="Número de expediente&#10;del alumno:" />
-      <Label layoutX="441.0" layoutY="120.0" text="Nombre del Grupo:" />
-      <Label layoutX="28.0" layoutY="166.0" text="Profesor:" />
-      <Label layoutX="28.0" layoutY="221.0" text="Fecha:" />
-      <Label layoutX="448.0" layoutY="221.0" text="Hora:" />
-      <Line endX="645.0" layoutX="103.0" layoutY="151.0" startX="-100.0" />
-      <Line endX="645.0" layoutX="103.0" layoutY="201.0" startX="-100.0" />
-      <TextField fx:id="tf_nExpediente" layoutX="165.0" layoutY="116.0" onKeyTyped="#onEscrito" prefHeight="25.0" prefWidth="248.0" promptText="Escribe el número del expediente" />
-      <DatePicker fx:id="datePicker" layoutX="165.0" layoutY="216.0" promptText="dd/mm/aa" />
-      <ComboBox fx:id="cb_hora" layoutX="564.0" layoutY="216.0" prefHeight="25.0" prefWidth="174.0" />
-      <Button id="greenBtt" fx:id="bt_parteVerde" layoutX="252.0" layoutY="64.0" mnemonicParsing="false" onAction="#onParteVerde" text="Parte Verde" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button id="orangeBtt" fx:id="bt_parteNaranja" layoutX="341.0" layoutY="64.0" mnemonicParsing="false" onAction="#onParteNaranja" text="Parte Naranja">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button id="redBtt" fx:id="bt_parteRojo" layoutX="438.0" layoutY="64.0" mnemonicParsing="false" onAction="#onParteRojo" text="Parte Rojo" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Line endX="644.0" layoutX="104.0" layoutY="252.0" startX="-100.0" />
-      <Line endX="647.0" layoutX="101.0" layoutY="407.0" startX="-100.0" />
-      <Label layoutX="28.0" layoutY="264.0" text="Descripción de los hechos">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <TextArea fx:id="tx_descripcion" layoutX="27.0" layoutY="286.0" prefHeight="107.0" prefWidth="311.0" />
-      <Button id="crearBtt" fx:id="editarBtt" layoutX="317.0" layoutY="413.0" mnemonicParsing="false" onAction="#onEditarAction" text="Editar" textFill="#fffefe" />
-      <TextField fx:id="tf_profesor" layoutX="165.0" layoutY="163.0" prefHeight="25.0" prefWidth="248.0" />
-      <TextField fx:id="tf_nombreGrupo" editable="false" layoutX="564.0" layoutY="116.0" prefHeight="25.0" prefWidth="174.0" />
-      <Pane fx:id="paneVerde" layoutX="429.0" layoutY="252.0" prefHeight="144.0" prefWidth="298.0">
-         <children>
-            <Label layoutY="7.0" text="La sanción que recibes (a determinar por el profesor)">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <TextArea fx:id="tx_sancion" layoutX="1.0" layoutY="30.0" prefHeight="107.0" prefWidth="297.0" />
-         </children>
-      </Pane>
-      <Pane fx:id="paneRojo" layoutX="411.0" layoutY="257.0" prefHeight="136.0" prefWidth="355.0">
-         <children>
-            <Label text="La sanción que recibe por Jefatura de Estudios" />
-            <ComboBox fx:id="opcionesSancioncb" layoutX="3.0" layoutY="26.0" onAction="#onClickSancionAction" prefHeight="25.0" prefWidth="317.0" />
-            <TextArea fx:id="sancionOtraTxArea" layoutX="3.0" layoutY="68.0" prefHeight="55.0" prefWidth="311.0" visible="false" />
-         </children>
-      </Pane>
-      <Button id="crearBtt" fx:id="cancelarBtt" layoutX="401.0" layoutY="413.0" mnemonicParsing="false" onAction="#onCancelarAction" style="-fx-background-color: #c95d5d;" text="Cancelar" textFill="#fffefe" />
-   </children>
+<AnchorPane fx:id="anchorPane" prefHeight="618.0" prefWidth="816.0" style="-fx-background-image: url('ui/Image/logoRibera.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.MostrarParteCtrll">
+    <children>
+        <AnchorPane id="anchorPane_Partes" fx:id="anchorPaneParte" layoutX="-9.0" layoutY="-1.0" prefHeight="625.0" prefWidth="825.0" stylesheets="@Styles.css">
+            <children>
+                <Label fx:id="lbTitulo" layoutX="171.0" layoutY="29.0" text="PARTE VERDE DE ADVERTENCIA">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label layoutX="34.0" layoutY="169.0" prefHeight="47.0" prefWidth="164.0" text="Número de expediente&#10;del alumno:">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="473.0" layoutY="180.0" text="Nombre del Grupo:">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="34.0" layoutY="247.0" text="Profesor:">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="34.0" layoutY="303.0" text="Fecha:">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="473.0" layoutY="310.0" text="Hora:">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Line endX="658.0" layoutX="133.0" layoutY="228.0" startX="-100.0" />
+                <Line endX="658.0" layoutX="133.0" layoutY="290.0" startX="-100.0" />
+                <TextField fx:id="tf_nExpediente" layoutX="204.0" layoutY="175.0" onKeyTyped="#onEscrito" prefHeight="25.0" prefWidth="248.0" promptText="Escribe el número del expediente">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </TextField>
+                <DatePicker fx:id="datePicker" layoutX="204.0" layoutY="305.0" prefHeight="35.0" prefWidth="194.0" promptText="dd/mm/aa" />
+                <ComboBox fx:id="cb_hora" layoutX="619.0" layoutY="305.0" prefHeight="35.0" prefWidth="174.0" />
+                <Button id="greenBtt" fx:id="bt_parteVerde" layoutX="176.0" layoutY="93.0" mnemonicParsing="false" onAction="#onParteVerde" text="Parte Verde" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+                <Button id="orangeBtt" fx:id="bt_parteNaranja" layoutX="354.0" layoutY="93.0" mnemonicParsing="false" onAction="#onParteNaranja" text="Parte Naranja">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+                <Button id="redBtt" fx:id="bt_parteRojo" layoutX="550.0" layoutY="93.0" mnemonicParsing="false" onAction="#onParteRojo" text="Parte Rojo" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+                <Line endX="658.0" layoutX="133.0" layoutY="353.0" startX="-100.0" />
+                <Line endX="658.0" layoutX="133.0" layoutY="548.0" startX="-100.0" />
+                <Label layoutX="34.0" layoutY="369.0" text="Descripción de los hechos">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="tx_descripcion" layoutX="34.0" layoutY="391.0" prefHeight="136.0" prefWidth="355.0">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </TextArea>
+                <Button id="crearBtt" fx:id="editarBtt" layoutX="324.0" layoutY="561.0" mnemonicParsing="false" onAction="#onEditarAction" text="Editar" textFill="#fffefe">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Button>
+                <TextField fx:id="tf_profesor" layoutX="204.0" layoutY="242.0" prefHeight="25.0" prefWidth="248.0">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="tf_nombreGrupo" editable="false" layoutX="619.0" layoutY="175.0" prefHeight="25.0" prefWidth="174.0">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </TextField>
+                <Pane fx:id="paneVerde" layoutX="470.0" layoutY="362.0" prefHeight="172.0" prefWidth="355.0">
+                    <children>
+                        <Label layoutY="7.0" text="Sanción a recibir">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <TextArea fx:id="tx_sancion" layoutX="1.0" layoutY="30.0" prefHeight="136.0" prefWidth="326.0">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </TextArea>
+                    </children>
+                </Pane>
+                <Button id="crearBtt" fx:id="cancelarBtt" layoutX="473.0" layoutY="561.0" mnemonicParsing="false" onAction="#onCancelarAction" style="-fx-background-color: #c95d5d;" text="Cancelar" textFill="#fffefe">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Button>
+                <Pane fx:id="paneRojo" layoutX="469.0" layoutY="366.0" prefHeight="136.0" prefWidth="355.0">
+                    <children>
+                        <Label layoutY="2.0" text="La sanción que recibe por Jefatura de Estudios">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="opcionesSancioncb" layoutX="3.0" layoutY="26.0" onAction="#onClickSancionAction" prefHeight="35.0" prefWidth="317.0" />
+                        <TextArea fx:id="sancionOtraTxArea" layoutX="3.0" layoutY="68.0" prefHeight="55.0" prefWidth="311.0" visible="false">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </TextArea>
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>
