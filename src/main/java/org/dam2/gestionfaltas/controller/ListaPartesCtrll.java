@@ -184,7 +184,6 @@ public class ListaPartesCtrll implements Initializable {
         });
 
         refreshTable(0); // CARGAR LA PRIMERA PÁGINA
-        numExpedienteTF.setText("");
     } // CONFIGURAR PAGINACION
     public void centrarTextoCeldas() {
         expedienteCol.setStyle("-fx-alignment: CENTER");
@@ -268,5 +267,9 @@ public class ListaPartesCtrll implements Initializable {
 
     public void onRecargarAction(ActionEvent event) {
         configurarPaginacion();
+
+        numExpedienteTF.setText("");
+        fechaFinalDP.setValue(null);
+        fechaFinalDP.setValue(null);
     }
 }
