@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -67,6 +68,20 @@ public class ListaPartesCtrll implements Initializable {
     private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl(); // DAO PARA CONSULTAR DATOS
     private static final int filasPorPagina = 5; // NÚMERO DE FILAS POR PÁGINA
 
+
+    @FXML
+    public void onBuscarNumExpListener(KeyEvent keyEvent) {
+        filtrarLista(false);
+        if (numExpedienteTF.getText().isBlank()) {
+            configurarPaginacion();
+        }
+    }
+
+    @FXML
+    public void onBuscarNumExpBoton(ActionEvent actionEvent) {
+        filtrarLista(true);
+    }
+
     @FXML
     void onBuscarFechaAction(ActionEvent event) {
         LocalDate fechaInicio = fechaInicioDP.getValue();
@@ -103,7 +118,7 @@ public class ListaPartesCtrll implements Initializable {
     } // BOTON PARA BUSCAR POR FECHAS
 
     @FXML
-    void onBuscarNumExpAction(ActionEvent event) {
+    void filtrarLista(boolean mostrarAlerta) {
         if (numExpedienteTF.getText().matches("\\d+")) {
             int numeroExpediente = Integer.parseInt(numExpedienteTF.getText());
             Alumno alumno = alumnoDAO.obtener(numeroExpediente); // OBTENER ALUMNO
@@ -118,10 +133,10 @@ public class ListaPartesCtrll implements Initializable {
             } else {
                 // SI NO EXISTE, SE LIMPIA LA TABLA Y SE MUESTRA EL ERROR
                 listaPartesTable.setItems(FXCollections.emptyObservableList());
-                AlertUtil.mostrarError("No existe un alumno con el expediente: " + numeroExpediente);
+                if (mostrarAlerta) AlertUtil.mostrarError("No existe un alumno con el expediente: " + numeroExpediente);
             } // SI EL ALUMNO NO EXISTE, SALTARA UN ERROR
         } else {
-            AlertUtil.mostrarError("Debe ingresar un número de expediente válido.");
+            if (mostrarAlerta) AlertUtil.mostrarError("Debe ingresar un número de expediente válido.");
         } // VALIDAR QUE SEA UN NÚMERO
     } // BOTON PARA BUSCAR LAS INCIDENCIAS DE UN ALUMNO POR SU EXPEDIENTE
 
@@ -252,5 +267,9 @@ public class ListaPartesCtrll implements Initializable {
 
     public void onRecargarAction(ActionEvent event) {
         configurarPaginacion();
+
+        numExpedienteTF.setText("");
+        fechaFinalDP.setValue(null);
+        fechaFinalDP.setValue(null);
     }
 }

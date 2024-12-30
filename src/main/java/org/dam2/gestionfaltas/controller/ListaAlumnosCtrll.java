@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableRow;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
 import org.dam2.gestionfaltas.model.Alumno;
@@ -44,8 +45,21 @@ public class ListaAlumnosCtrll implements Initializable {
     private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl(); // DAO PARA CONSULTAR DATOS
     private static final int filasPorPagina = 5; // NÚMERO DE FILAS POR PÁGINA
 
+
     @FXML
-    void onBuscarNumExpAction(ActionEvent event) {
+    public void onBuscarNumExpListener(KeyEvent keyEvent) {
+        filtrarLista(false);
+        if (numExpedienteTF.getText().isBlank()) {
+            configurarPaginacion();
+        }
+    }
+
+    @FXML
+    public void onBuscarNumExpBoton(ActionEvent actionEvent) {
+        filtrarLista(true);
+    }
+
+    void filtrarLista(boolean mostrarAlerta) {
         if (numExpedienteTF.getText().matches("\\d+")) {
             int numeroExpediente = Integer.parseInt(numExpedienteTF.getText());
 
@@ -62,10 +76,10 @@ public class ListaAlumnosCtrll implements Initializable {
             } else {
                 // SI NO EXISTE, SE LIMPIA LA TABLA Y SE MUESTRA EL ERROR
                 listaAlumnosTable.setItems(FXCollections.emptyObservableList());
-                AlertUtil.mostrarError("No existe un alumno con el expediente: " + numeroExpediente);
+                if (mostrarAlerta) AlertUtil.mostrarError("No existe un alumno con el expediente: " + numeroExpediente);
             } // SI EL ALUMNO NO EXISTE, SALTARA UN ERROR
         } else {
-            AlertUtil.mostrarError("Debe ingresar un número de expediente válido.");
+            if (mostrarAlerta) AlertUtil.mostrarError("Debe ingresar un número de expediente válido.");
         } // VALIDAR QUE SEA UN NÚMERO
     } // BOTON PARA BUSCAR UN ALUMNO POR SU EXPEDIENTE
 
@@ -114,7 +128,6 @@ public class ListaAlumnosCtrll implements Initializable {
         }); // setRowFactory
     } // METODO PARA ACTUALIZAD TABLA
 
-
     private void configurarPaginacion() {
         long totalAlumnos = alumnoDAO.contar();
         int totalPaginas = (int) Math.ceil((double) totalAlumnos / filasPorPagina);
@@ -135,8 +148,6 @@ public class ListaAlumnosCtrll implements Initializable {
         nombreGrupoCol.setStyle("-fx-alignment: CENTER");
     }
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // CONFIGURAR COLUMNAS
@@ -156,5 +167,6 @@ public class ListaAlumnosCtrll implements Initializable {
 
     public void onRecargarAction(ActionEvent event) {
         configurarPaginacion();
+        numExpedienteTF.setText("");
     }
 }
