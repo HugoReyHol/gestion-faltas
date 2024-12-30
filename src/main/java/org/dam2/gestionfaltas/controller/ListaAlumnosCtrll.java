@@ -128,7 +128,6 @@ public class ListaAlumnosCtrll implements Initializable {
         }); // setRowFactory
     } // METODO PARA ACTUALIZAD TABLA
 
-
     private void configurarPaginacion() {
         long totalAlumnos = alumnoDAO.contar();
         int totalPaginas = (int) Math.ceil((double) totalAlumnos / filasPorPagina);
@@ -140,7 +139,6 @@ public class ListaAlumnosCtrll implements Initializable {
         });
 
         refreshTable(0); // CARGAR LA PRIMERA PÁGINA
-        numExpedienteTF.setText("");
     } // CONFIGURAR PAGINACION
 
     public void centrarTextoCeldas() {
@@ -149,8 +147,6 @@ public class ListaAlumnosCtrll implements Initializable {
         puntosAcumuladosCol.setStyle("-fx-alignment: CENTER");
         nombreGrupoCol.setStyle("-fx-alignment: CENTER");
     }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -171,5 +167,6 @@ public class ListaAlumnosCtrll implements Initializable {
 
     public void onRecargarAction(ActionEvent event) {
         configurarPaginacion();
+        numExpedienteTF.setText("");
     }
 }
