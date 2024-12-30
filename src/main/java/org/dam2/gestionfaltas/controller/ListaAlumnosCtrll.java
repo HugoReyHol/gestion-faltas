@@ -49,6 +49,9 @@ public class ListaAlumnosCtrll implements Initializable {
     @FXML
     public void onBuscarNumExpListener(KeyEvent keyEvent) {
         filtrarLista(false);
+        if (numExpedienteTF.getText().isBlank()) {
+            configurarPaginacion();
+        }
     }
 
     @FXML
@@ -137,6 +140,7 @@ public class ListaAlumnosCtrll implements Initializable {
         });
 
         refreshTable(0); // CARGAR LA PRIMERA PÁGINA
+        numExpedienteTF.setText("");
     } // CONFIGURAR PAGINACION
 
     public void centrarTextoCeldas() {
