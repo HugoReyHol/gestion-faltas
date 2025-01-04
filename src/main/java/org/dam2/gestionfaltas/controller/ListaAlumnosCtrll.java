@@ -26,8 +26,6 @@ public class ListaAlumnosCtrll implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button buscarNumExpBtt;
-    @FXML
     private TableColumn<Alumno, Integer> expedienteCol;
     @FXML
     private TableView<Alumno> listaAlumnosTable;
@@ -48,18 +46,6 @@ public class ListaAlumnosCtrll implements Initializable {
 
     @FXML
     public void onBuscarNumExpListener(KeyEvent keyEvent) {
-        filtrarLista(false);
-        if (numExpedienteTF.getText().isBlank()) {
-            configurarPaginacion();
-        }
-    }
-
-    @FXML
-    public void onBuscarNumExpBoton(ActionEvent actionEvent) {
-        filtrarLista(true);
-    }
-
-    void filtrarLista(boolean mostrarAlerta) {
         if (numExpedienteTF.getText().matches("\\d+")) {
             int numeroExpediente = Integer.parseInt(numExpedienteTF.getText());
 
@@ -76,12 +62,13 @@ public class ListaAlumnosCtrll implements Initializable {
             } else {
                 // SI NO EXISTE, SE LIMPIA LA TABLA Y SE MUESTRA EL ERROR
                 listaAlumnosTable.setItems(FXCollections.emptyObservableList());
-                if (mostrarAlerta) AlertUtil.mostrarError("No existe un alumno con el expediente: " + numeroExpediente);
             } // SI EL ALUMNO NO EXISTE, SALTARA UN ERROR
-        } else {
-            if (mostrarAlerta) AlertUtil.mostrarError("Debe ingresar un número de expediente válido.");
         } // VALIDAR QUE SEA UN NÚMERO
-    } // BOTON PARA BUSCAR UN ALUMNO POR SU EXPEDIENTE
+
+        if (numExpedienteTF.getText().isBlank()) {
+            configurarPaginacion();
+        }
+    } //BUSCA ALUMNO POR NUMERO EXPEDIENTE AL ESCRIBIR EN TEXTFIELD
 
     /**
      * NOTA: la paginación funciona calculando el índice de inicio de la lista a partir
