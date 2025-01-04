@@ -34,10 +34,6 @@ public class ListaPartesCtrll implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button buscarFechaBtt;
-    @FXML
-    private Button buscarNumExpBtt;
-    @FXML
     private TableColumn<Incidencia, String> descripcionCol;
     @FXML
     private TableColumn<Incidencia, Integer> expedienteCol;
@@ -71,16 +67,27 @@ public class ListaPartesCtrll implements Initializable {
 
     @FXML
     public void onBuscarNumExpListener(KeyEvent keyEvent) {
-        filtrarLista(false);
+        if (numExpedienteTF.getText().matches("\\d+")) {
+            int numeroExpediente = Integer.parseInt(numExpedienteTF.getText());
+            Alumno alumno = alumnoDAO.obtener(numeroExpediente); // OBTENER ALUMNO
+
+            if (alumno != null) {
+                // OBTENER LAS INCIDENCIAS DEL ALUMNO
+                List<Incidencia> incidenciasAlumno = incidenciaDAO.listarPorAlumno(alumno);
+
+                // CREAR UN OBSERVABLELIST CON LAS INCIDENCIAS
+                ObservableList<Incidencia> datos = FXCollections.observableArrayList(incidenciasAlumno);
+                listaPartesTable.setItems(datos);  // ESTABLECER LOS DATOS EN LA TABLA
+            } else {
+                // SI NO EXISTE, SE LIMPIA LA TABLA Y SE MUESTRA EL ERROR
+                listaPartesTable.setItems(FXCollections.emptyObservableList());
+            } // SI EL ALUMNO NO EXISTE, SALTARA UN ERROR
+        } // VALIDAR QUE SEA UN NÚMERO
+
         if (numExpedienteTF.getText().isBlank()) {
             configurarPaginacion();
         }
-    }
-
-    @FXML
-    public void onBuscarNumExpBoton(ActionEvent actionEvent) {
-        filtrarLista(true);
-    }
+    } //BUSCA ALUMNO POR NUMERO EXPEDIENTE AL ESCRIBIR EN TEXTFIELD
 
     @FXML
     void onBuscarFechaAction(ActionEvent event) {
@@ -116,29 +123,6 @@ public class ListaPartesCtrll implements Initializable {
             AlertUtil.mostrarError("Debe seleccionar un rango de fechas.");
         } // SI LAS FECHAS NO SON NULAS, SE BUSCA
     } // BOTON PARA BUSCAR POR FECHAS
-
-    @FXML
-    void filtrarLista(boolean mostrarAlerta) {
-        if (numExpedienteTF.getText().matches("\\d+")) {
-            int numeroExpediente = Integer.parseInt(numExpedienteTF.getText());
-            Alumno alumno = alumnoDAO.obtener(numeroExpediente); // OBTENER ALUMNO
-
-            if (alumno != null) {
-                // OBTENER LAS INCIDENCIAS DEL ALUMNO
-                List<Incidencia> incidenciasAlumno = incidenciaDAO.listarPorAlumno(alumno);
-
-                // CREAR UN OBSERVABLELIST CON LAS INCIDENCIAS
-                ObservableList<Incidencia> datos = FXCollections.observableArrayList(incidenciasAlumno);
-                listaPartesTable.setItems(datos);  // ESTABLECER LOS DATOS EN LA TABLA
-            } else {
-                // SI NO EXISTE, SE LIMPIA LA TABLA Y SE MUESTRA EL ERROR
-                listaPartesTable.setItems(FXCollections.emptyObservableList());
-                if (mostrarAlerta) AlertUtil.mostrarError("No existe un alumno con el expediente: " + numeroExpediente);
-            } // SI EL ALUMNO NO EXISTE, SALTARA UN ERROR
-        } else {
-            if (mostrarAlerta) AlertUtil.mostrarError("Debe ingresar un número de expediente válido.");
-        } // VALIDAR QUE SEA UN NÚMERO
-    } // BOTON PARA BUSCAR LAS INCIDENCIAS DE UN ALUMNO POR SU EXPEDIENTE
 
     private void refreshTable(int paginaActual) {
         int inicio = paginaActual * filasPorPagina; // SE CALCULA EL INDICE DE INCIO A PARTIR DE LA PAGINA ACTUAL Y EL NUM FILAS

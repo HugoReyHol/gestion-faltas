@@ -26,8 +26,6 @@ public class ListaAlumnosCtrll implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button buscarNumExpBtt;
-    @FXML
     private TableColumn<Alumno, Integer> expedienteCol;
     @FXML
     private TableView<Alumno> listaAlumnosTable;
