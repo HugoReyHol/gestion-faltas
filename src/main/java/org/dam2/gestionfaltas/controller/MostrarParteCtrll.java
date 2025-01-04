@@ -21,6 +21,7 @@ import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.AlertUtil;
 import org.dam2.gestionfaltas.util.Color;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,7 @@ import java.util.ResourceBundle;
 
 
 public class MostrarParteCtrll implements Initializable {
+    public Button borrarBtt;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -57,7 +59,16 @@ public class MostrarParteCtrll implements Initializable {
     private Pane paneRojo;
     @FXML
     private TextArea sancionOtraTxArea;
+    @FXML
+    private Button bt_parteNaranja;
+    @FXML
+    private Button editarBtt;
 
+    @FXML
+    private Button bt_parteRojo;
+
+    @FXML
+    private Button bt_parteVerde;
     public ComboBox<String> opcionesSancioncb;
 
     private Color color;
@@ -72,12 +83,32 @@ public class MostrarParteCtrll implements Initializable {
                     expediente abreviado""",
             "Reunión con la Comisión de Convivencia",
             """
-            Es obligado pedir disculpas a la persona/as
-            contra las que se ejerció daño físico o moral,
-            y/o reparar los daños materiales causados""",
+                    Es obligado pedir disculpas a la persona/as
+                    contra las que se ejerció daño físico o moral,
+                    y/o reparar los daños materiales causados""",
             "Otro");
 
-    public void setIncidencia(Incidencia incidencia){
+
+    boolean isEditable = false;
+
+    void habilitarCampos(boolean value) {
+        isEditable = value;
+        tf_nExpediente.setEditable(value);
+        tf_nombreGrupo.setEditable(value);
+        datePicker.setEditable(value);
+        Platform.runLater(() -> cb_hora.getSelectionModel().select(cb_hora.getSelectionModel().getSelectedItem()));
+        tx_descripcion.setDisable(!value);
+        sancionOtraTxArea.setEditable(value);
+        opcionesSancioncb.setEditable(value);
+        tf_profesor.setEditable(value);
+        tx_sancion.setDisable(!value);
+        bt_parteNaranja.setDisable(!value);
+        bt_parteRojo.setDisable(!value);
+        bt_parteVerde.setDisable(!value);
+        editarBtt.setText("Editar");
+    } // METODO PARA HABILITAR O DESHABILITAR LOS CAMPOS
+
+    public void setIncidencia(Incidencia incidencia) {
         this.incidencia = incidencia;
         alumno = incidencia.getIdAlumno();
         color = incidencia.getIdPuntos().getColor();
@@ -96,8 +127,8 @@ public class MostrarParteCtrll implements Initializable {
 
         tx_sancion.setText(incidencia.getSancion());
 
-        if (incidencia.getSancion().equals(sanciones.toArray()[sanciones.size()-1])) {
-            opcionesSancioncb.setValue((String) sanciones.toArray()[sanciones.size()-1]);
+        if (incidencia.getSancion().equals(sanciones.toArray()[sanciones.size() - 1])) {
+            opcionesSancioncb.setValue((String) sanciones.toArray()[sanciones.size() - 1]);
             sancionOtraTxArea.setText(incidencia.getSancion());
             sancionOtraTxArea.setVisible(true);
 
@@ -123,7 +154,7 @@ public class MostrarParteCtrll implements Initializable {
     }
 
     public void onClickSancionAction(ActionEvent actionEvent) {
-        if(opcionesSancioncb.getValue().equals(sanciones.toArray()[sanciones.size()-1])){
+        if (opcionesSancioncb.getValue().equals(sanciones.toArray()[sanciones.size() - 1])) {
             sancionOtraTxArea.setVisible(true);
         } else {
             sancionOtraTxArea.setVisible(false);
@@ -131,9 +162,14 @@ public class MostrarParteCtrll implements Initializable {
     }
 
     public void onEditarAction(ActionEvent actionEvent) {
+        if (isEditable) {
+            // SI ES EDITABLE, CIERRA LA VENTANA
+            onCancelarAction(actionEvent);
+        }
+        habilitarCampos(true);
         ProfesorDAOImpl profesorDAO = new ProfesorDAOImpl();
         Profesor p = profesorDAO.obtener(tf_profesor.getText());
-        if ( p == null) {
+        if (p == null) {
             AlertUtil.mostrarInfo("El profesor no existe");
             return;
         }
@@ -149,7 +185,7 @@ public class MostrarParteCtrll implements Initializable {
 
         incidencia.setFecha(datePicker.getValue());
 
-        if (incidencia.getFecha() == null ) {
+        if (incidencia.getFecha() == null) {
             AlertUtil.mostrarInfo("Debe elegir una fecha");
             return;
         }
@@ -180,11 +216,11 @@ public class MostrarParteCtrll implements Initializable {
                 return;
             }
 
-        }else {
+        } else {
             incidencia.setSancion(opcionesSancioncb.getValue());
 
             // Comprueba si es otro o no
-            if(opcionesSancioncb.getValue().equals(sanciones.toArray()[sanciones.size()-1])){
+            if (opcionesSancioncb.getValue().equals(sanciones.toArray()[sanciones.size() - 1])) {
                 incidencia.setSancion(sancionOtraTxArea.getText());
 
             } else {
@@ -201,8 +237,6 @@ public class MostrarParteCtrll implements Initializable {
         IncidenciaDAOImpl incidenciaDAO = new IncidenciaDAOImpl();
 
         incidenciaDAO.modificar(incidencia);
-
-        onCancelarAction(actionEvent);
     }
 
     public void onCancelarAction(ActionEvent actionEvent) {
@@ -212,13 +246,14 @@ public class MostrarParteCtrll implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        habilitarCampos(false);
         Platform.runLater(() -> {
             anchorPaneParte.layoutXProperty().bind(anchorPane.widthProperty().subtract(anchorPaneParte.widthProperty()).divide(2));
             anchorPaneParte.layoutYProperty().bind(anchorPane.heightProperty().subtract(anchorPaneParte.heightProperty()).divide(2));
         });
         opcionesSancioncb.setItems(sanciones);
 
-        for (Hora h: horaDAO.listar()) {
+        for (Hora h : horaDAO.listar()) {
             horas.add(h.getHora());
         }
 
@@ -232,7 +267,8 @@ public class MostrarParteCtrll implements Initializable {
             if (alumno != null) tf_nombreGrupo.setText(alumno.getGrupo().getNombreGrupo());
             else tf_nombreGrupo.clear();
 
-        }catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     @FXML
@@ -261,4 +297,16 @@ public class MostrarParteCtrll implements Initializable {
         lbTitulo.setText("PARTE VERDE DE ADVERTENCIA");
         color = Color.VERDE;
     }
+
+    public void onBorrarAction(ActionEvent actionEvent) {
+        int opcion = JOptionPane.showConfirmDialog(null,
+                "¿Está seguro de que desea eliminar el parte?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            IncidenciaDAOImpl incidenciaDAO = new IncidenciaDAOImpl();
+            // ELIMINAMOS LA INCIDENCIA Y SE CIERRA LA VENTANA
+            incidenciaDAO.eliminar(incidencia.getIdParte());
+            onCancelarAction(actionEvent);
+            /** luego se tendria que dar al boton de recargar **/
+        }
+    } // METODO PARA ELIMINAR PARTES
 }

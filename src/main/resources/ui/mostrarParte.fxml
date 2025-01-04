@@ -11,10 +11,15 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="618.0" prefWidth="816.0" style="-fx-background-image: url('ui/Image/logoRibera.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.MostrarParteCtrll">
+<AnchorPane fx:id="anchorPane" prefHeight="618.0" prefWidth="816.0" style="-fx-background-image: url('ui/Image/logoRibera.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.MostrarParteCtrll">
     <children>
         <AnchorPane id="anchorPane_Partes" fx:id="anchorPaneParte" layoutX="-9.0" layoutY="-1.0" prefHeight="625.0" prefWidth="825.0" stylesheets="@Styles.css">
             <children>
+            <Button id="anchorPane_Partes" fx:id="borrarBtt" layoutX="706.0" layoutY="13.0" mnemonicParsing="false" onAction="#onBorrarAction" prefHeight="102.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="🗑">
+               <font>
+                  <Font name="System Bold" size="54.0" />
+               </font>
+            </Button>
                 <Label fx:id="lbTitulo" layoutX="171.0" layoutY="29.0" text="PARTE VERDE DE ADVERTENCIA">
                     <font>
                         <Font name="System Bold" size="32.0" />
