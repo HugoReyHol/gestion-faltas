@@ -155,8 +155,20 @@ public class PartesAdvertenciaCtrll implements Initializable {
         IncidenciaDAOImpl incidenciaDAO = new IncidenciaDAOImpl();
 
         incidenciaDAO.crear(incidencia);
-
+        AlertUtil.mostrarInfo("Parte creado correctamente");
+        onLimpiarCampos(); // CUANDO SE CREE EL PARTE, SE LIMPIAN LOS CAMPOS
     }
+
+    void onLimpiarCampos(){
+        tf_nExpediente.clear();
+        tf_nombreGrupo.clear();
+        datePicker.setValue(null);
+        cb_hora.setValue(null);
+        opcionesSancioncb.setValue(null);
+        tx_descripcion.clear();
+        sancionOtraTxArea.clear();
+        tx_sancion.clear();
+    } // METODO PARA LIMPIAR LOS CAMPOS DEL FORMULARIO
 
     @FXML
     void onParteNaranja(ActionEvent event) {
