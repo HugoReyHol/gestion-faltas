@@ -42,16 +42,42 @@ public class CrearProfesorCtrll implements Initializable {
 
     @FXML
     void onCrearProfesor(ActionEvent event) {
-        if (tfNombre.getText().isBlank() || tfNumeroAsignado.getText().isBlank() ||
-                tfContrasena.getText().isBlank() || cbTipo.getValue() == null) {
-            AlertUtil.mostrarInfo("Rellene todos los campos");
-
-        }else{
-
-            Profesor profesor= new Profesor(Encriptador.encriptar(tfContrasena.getText()),tfNombre.getText(),tfNumeroAsignado.getText(),Tipos.valueOf(cbTipo.getValue()));
-            System.out.println(profesor);
-            profesorDAO.crear(profesor);
+        if (tfNombre.getText().isBlank()) {
+            AlertUtil.mostrarInfo("El campo \"Nombre\" no puede estar vacío.");
+            return;
         }
+
+        if (tfNumeroAsignado.getText().isBlank()) {
+            AlertUtil.mostrarInfo("El campo \"Número asignado\" no puede estar vacío.");
+            return;
+        }
+
+        if (profesorDAO.obtener(tfNumeroAsignado.getText()) != null) {
+            AlertUtil.mostrarInfo("El profesor " + tfNumeroAsignado.getText() + " ya existe.");
+            return;
+        }
+
+        if (tfContrasena.getText().isBlank()) {
+            AlertUtil.mostrarInfo("El campo \"Contraseña\" no puede estar vacío.");
+            return;
+        }
+
+        if (cbTipo.getValue() == null) {
+            AlertUtil.mostrarInfo("Debe seleccionar un tipo de profesor");
+            return;
+        }
+
+        Profesor profesor= new Profesor(Encriptador.encriptar(tfContrasena.getText()),tfNombre.getText(),tfNumeroAsignado.getText(),Tipos.valueOf(cbTipo.getValue()));
+        System.out.println(profesor);
+        profesorDAO.crear(profesor);
+
+        cbTipo.setValue(null);
+        tfContrasena.clear();
+        tfNumeroAsignado.clear();
+        tfNombre.clear();
+
+        AlertUtil.mostrarInfo("Profesor creado correctamente.");
+
     }
 
     @Override
