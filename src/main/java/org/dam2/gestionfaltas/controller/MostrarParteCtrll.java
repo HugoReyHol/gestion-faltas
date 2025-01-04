@@ -21,6 +21,7 @@ import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.AlertUtil;
 import org.dam2.gestionfaltas.util.Color;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,7 @@ import java.util.ResourceBundle;
 
 
 public class MostrarParteCtrll implements Initializable {
+    public Button borrarBtt;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -85,6 +87,7 @@ public class MostrarParteCtrll implements Initializable {
                     contra las que se ejerció daño físico o moral,
                     y/o reparar los daños materiales causados""",
             "Otro");
+
 
     boolean isEditable = false;
 
@@ -159,7 +162,7 @@ public class MostrarParteCtrll implements Initializable {
     }
 
     public void onEditarAction(ActionEvent actionEvent) {
-        if(isEditable) {
+        if (isEditable) {
             // SI ES EDITABLE, CIERRA LA VENTANA
             onCancelarAction(actionEvent);
         }
@@ -295,4 +298,16 @@ public class MostrarParteCtrll implements Initializable {
         lbTitulo.setText("PARTE VERDE DE ADVERTENCIA");
         color = Color.VERDE;
     }
+
+    public void onBorrarAction(ActionEvent actionEvent) {
+        int opcion = JOptionPane.showConfirmDialog(null,
+                "¿Está seguro de que desea eliminar el parte?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            IncidenciaDAOImpl incidenciaDAO = new IncidenciaDAOImpl();
+            // ELIMINAMOS LA INCIDENCIA Y SE CIERRA LA VENTANA
+            incidenciaDAO.eliminar(incidencia.getIdParte());
+            onCancelarAction(actionEvent);
+            /** luego se tendria que dar al boton de recargar **/
+        }
+    } // METODO PARA ELIMINAR PARTES
 }
