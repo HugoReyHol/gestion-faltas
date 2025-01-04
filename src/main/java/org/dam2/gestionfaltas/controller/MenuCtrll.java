@@ -6,14 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.CambiarVista;
-import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.dam2.gestionfaltas.util.R;
 import org.dam2.gestionfaltas.util.Tipos;
 
@@ -22,6 +20,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuCtrll implements Initializable {
+    @FXML
+    private Label tipoProfesorLabel;
 
     @FXML
     private HBox hbContenido;
@@ -77,6 +77,14 @@ public class MenuCtrll implements Initializable {
         }
     }
 
+    public void cambiarTipoProfesorLabel(){
+        if (profesor.getTipo() == Tipos.PROFESOR) {
+            tipoProfesorLabel.setText("Profesor");
+        } else {
+            tipoProfesorLabel.setText("Jefe estudios");
+        }
+    } // METODO PARA CUANDO INICIE LE SALGA EL TIPO DE PROFESOR QUE ES
+
     @FXML
     void onCerrarSesionAction(ActionEvent event) {
         profesor = null; // DESHABILITAR PROFESOR
@@ -96,5 +104,8 @@ public class MenuCtrll implements Initializable {
         });
         bt_cerrarSesion.layoutYProperty().bind(paneMenu.heightProperty().subtract(bt_cerrarSesion.heightProperty()).divide(2));
         bt_cerrarSesion.layoutXProperty().bind(paneMenu.widthProperty().subtract(bt_cerrarSesion.widthProperty()).subtract(20));
+
+        tipoProfesorLabel.layoutYProperty().bind(paneMenu.heightProperty().subtract(tipoProfesorLabel.heightProperty()).divide(2));
+        tipoProfesorLabel.layoutXProperty().bind(paneMenu.widthProperty().subtract(tipoProfesorLabel.widthProperty()).subtract(160));
     }
 }

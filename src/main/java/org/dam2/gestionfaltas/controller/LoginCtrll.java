@@ -80,6 +80,7 @@ public class LoginCtrll implements Initializable {
 
         MenuCtrll.profesor = profesor;
         ((MenuCtrll) fxmlLoader.getController()).actualizarBotones();
+        ((MenuCtrll) fxmlLoader.getController()).cambiarTipoProfesorLabel();
 
         ((Stage) inNumero.getScene().getWindow()).setScene(scene);
 

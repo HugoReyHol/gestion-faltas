@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1072.0" style="-fx-background-color: #b0acac;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.MenuCtrll">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1072.0" style="-fx-background-color: #b0acac;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dam2.gestionfaltas.controller.MenuCtrll">
     <children>
       <HBox fx:id="hbContenido" alignment="CENTER" layoutX="8.0" layoutY="13.0" prefHeight="667.0" prefWidth="1058.0" scaleShape="false" style="-fx-background-image: url('ui/Image/logoRibera.png'); -fx-background-size: cover; -fx-background-position: center;" />
         <Pane fx:id="paneMenu" prefHeight="49.0" prefWidth="1072.0" style="-fx-background-color: white;">
@@ -38,6 +39,11 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
+            <Label fx:id="tipoProfesorLabel" layoutX="776.0" layoutY="10.0" text="Jefe de estudios">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
     </children>
