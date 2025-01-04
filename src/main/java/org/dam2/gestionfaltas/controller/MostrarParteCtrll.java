@@ -247,7 +247,6 @@ public class MostrarParteCtrll implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         habilitarCampos(false);
-        editarBtt.setText("Modo edición");
         Platform.runLater(() -> {
             anchorPaneParte.layoutXProperty().bind(anchorPane.widthProperty().subtract(anchorPaneParte.widthProperty()).divide(2));
             anchorPaneParte.layoutYProperty().bind(anchorPane.heightProperty().subtract(anchorPaneParte.heightProperty()).divide(2));
