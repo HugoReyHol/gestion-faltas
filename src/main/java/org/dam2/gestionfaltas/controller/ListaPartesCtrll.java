@@ -253,7 +253,7 @@ public class ListaPartesCtrll implements Initializable {
         configurarPaginacion();
 
         numExpedienteTF.setText("");
-        fechaFinalDP.setValue(null);
+        fechaInicioDP.setValue(null);
         fechaFinalDP.setValue(null);
     }
 }
