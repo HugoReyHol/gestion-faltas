@@ -2,6 +2,7 @@ package org.dam2.gestionfaltas.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,17 +13,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.controlsfx.tools.Platform;
-import org.dam2.gestionfaltas.dao.AlumnoDAOImpl;
-import org.dam2.gestionfaltas.dao.IncidenciaDAOImpl;
-import org.dam2.gestionfaltas.dao.ProfesorDAOImpl;
-import org.dam2.gestionfaltas.dao.PuntosPartesDAOImpl;
+import org.dam2.gestionfaltas.dao.*;
 import org.dam2.gestionfaltas.model.Alumno;
+import org.dam2.gestionfaltas.model.Hora;
 import org.dam2.gestionfaltas.model.Incidencia;
 import org.dam2.gestionfaltas.model.Profesor;
 import org.dam2.gestionfaltas.util.AlertUtil;
 import org.dam2.gestionfaltas.util.Color;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -33,25 +32,50 @@ import java.util.ResourceBundle;
 
 
 public class MostrarParteCtrll implements Initializable {
-    public AnchorPane anchoPaneParte;
-    public Label lbTitulo;
-    public TextField tf_nExpediente;
-    public DatePicker datePicker;
-    public ComboBox<String> cb_hora;
-    public TextArea tx_descripcion;
-    public TextField tf_profesor;
-    public TextField tf_nombreGrupo;
-    public Pane paneVerde;
-    public TextArea tx_sancion;
-    public Pane paneRojo;
+    public Button borrarBtt;
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private AnchorPane anchorPaneParte;
+    @FXML
+    private Label lbTitulo;
+    @FXML
+    private TextField tf_nExpediente;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private ComboBox<String> cb_hora;
+    @FXML
+    private TextArea tx_descripcion;
+    @FXML
+    private TextField tf_profesor;
+    @FXML
+    private TextField tf_nombreGrupo;
+    @FXML
+    private Pane paneVerde;
+    @FXML
+    private TextArea tx_sancion;
+    @FXML
+    private Pane paneRojo;
     @FXML
     private TextArea sancionOtraTxArea;
+    @FXML
+    private Button bt_parteNaranja;
+    @FXML
+    private Button editarBtt;
+
+    @FXML
+    private Button bt_parteRojo;
+
+    @FXML
+    private Button bt_parteVerde;
     public ComboBox<String> opcionesSancioncb;
 
     private Color color;
     private Alumno alumno;
     private Incidencia incidencia;
-    private AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl();
+    private final AlumnoDAOImpl alumnoDAO = new AlumnoDAOImpl();
+    private final HoraDAOImpl horaDAO = new HoraDAOImpl();
     private final ObservableList<String> horas = FXCollections.observableArrayList();
     private final ObservableList<String> sanciones = FXCollections.observableArrayList(
             """
@@ -59,12 +83,32 @@ public class MostrarParteCtrll implements Initializable {
                     expediente abreviado""",
             "Reunión con la Comisión de Convivencia",
             """
-            Es obligado pedir disculpas a la persona/as
-            contra las que se ejerció daño físico o moral,
-            y/o reparar los daños materiales causados""",
+                    Es obligado pedir disculpas a la persona/as
+                    contra las que se ejerció daño físico o moral,
+                    y/o reparar los daños materiales causados""",
             "Otro");
 
-    public void setIncidencia(Incidencia incidencia){
+
+    boolean isEditable = false;
+
+    void habilitarCampos(boolean value) {
+        isEditable = value;
+        tf_nExpediente.setEditable(value);
+        tf_nombreGrupo.setEditable(value);
+        datePicker.setEditable(value);
+        Platform.runLater(() -> cb_hora.getSelectionModel().select(cb_hora.getSelectionModel().getSelectedItem()));
+        tx_descripcion.setDisable(!value);
+        sancionOtraTxArea.setEditable(value);
+        opcionesSancioncb.setEditable(value);
+        tf_profesor.setEditable(value);
+        tx_sancion.setDisable(!value);
+        bt_parteNaranja.setDisable(!value);
+        bt_parteRojo.setDisable(!value);
+        bt_parteVerde.setDisable(!value);
+        editarBtt.setText("Editar");
+    } // METODO PARA HABILITAR O DESHABILITAR LOS CAMPOS
+
+    public void setIncidencia(Incidencia incidencia) {
         this.incidencia = incidencia;
         alumno = incidencia.getIdAlumno();
         color = incidencia.getIdPuntos().getColor();
@@ -74,7 +118,7 @@ public class MostrarParteCtrll implements Initializable {
         tf_nExpediente.setText(String.valueOf(incidencia.getIdAlumno().getNumeroExpediente()));
 
         datePicker.setValue(incidencia.getFecha());
-        cb_hora.setValue(incidencia.getHora());
+        cb_hora.setValue(incidencia.getIdHora().getHora());
         tx_descripcion.setText(incidencia.getDescripcion());
 
         tf_profesor.setText(incidencia.getIdProfesor().getNumeroAsignado());
@@ -83,8 +127,8 @@ public class MostrarParteCtrll implements Initializable {
 
         tx_sancion.setText(incidencia.getSancion());
 
-        if (incidencia.getSancion().equals(sanciones.toArray()[sanciones.size()-1])) {
-            opcionesSancioncb.setValue((String) sanciones.toArray()[sanciones.size()-1]);
+        if (incidencia.getSancion().equals(sanciones.toArray()[sanciones.size() - 1])) {
+            opcionesSancioncb.setValue((String) sanciones.toArray()[sanciones.size() - 1]);
             sancionOtraTxArea.setText(incidencia.getSancion());
             sancionOtraTxArea.setVisible(true);
 
@@ -94,23 +138,23 @@ public class MostrarParteCtrll implements Initializable {
             case VERDE -> {
                 paneVerde.setVisible(true);
                 paneRojo.setVisible(false);
-                anchoPaneParte.setStyle("-fx-background-color: green;");
+                anchorPaneParte.setStyle("-fx-background-color: #befc77");
             }
             case NARANJA -> {
                 paneVerde.setVisible(true);
                 paneRojo.setVisible(false);
-                anchoPaneParte.setStyle("-fx-background-color: orange;");
+                anchorPaneParte.setStyle("-fx-background-color: #FFA500");
             }
             case ROJO -> {
                 paneVerde.setVisible(false);
                 paneRojo.setVisible(true);
-                anchoPaneParte.setStyle("-fx-background-color: red;");
+                anchorPaneParte.setStyle("-fx-background-color: #E64942");
             }
         }
     }
 
     public void onClickSancionAction(ActionEvent actionEvent) {
-        if(opcionesSancioncb.getValue().equals(sanciones.toArray()[sanciones.size()-1])){
+        if (opcionesSancioncb.getValue().equals(sanciones.toArray()[sanciones.size() - 1])) {
             sancionOtraTxArea.setVisible(true);
         } else {
             sancionOtraTxArea.setVisible(false);
@@ -118,9 +162,14 @@ public class MostrarParteCtrll implements Initializable {
     }
 
     public void onEditarAction(ActionEvent actionEvent) {
+        if (isEditable) {
+            // SI ES EDITABLE, CIERRA LA VENTANA
+            onCancelarAction(actionEvent);
+        }
+        habilitarCampos(true);
         ProfesorDAOImpl profesorDAO = new ProfesorDAOImpl();
         Profesor p = profesorDAO.obtener(tf_profesor.getText());
-        if ( p == null) {
+        if (p == null) {
             AlertUtil.mostrarInfo("El profesor no existe");
             return;
         }
@@ -136,14 +185,14 @@ public class MostrarParteCtrll implements Initializable {
 
         incidencia.setFecha(datePicker.getValue());
 
-        if (incidencia.getFecha() == null ) {
+        if (incidencia.getFecha() == null) {
             AlertUtil.mostrarInfo("Debe elegir una fecha");
             return;
         }
 
-        incidencia.setHora(cb_hora.getValue());
+        incidencia.setIdHora(horaDAO.obtener(cb_hora.getValue()));
 
-        if (incidencia.getHora() == null) {
+        if (incidencia.getIdHora() == null) {
             AlertUtil.mostrarInfo("Debe elegir una hora");
             return;
         }
@@ -167,11 +216,11 @@ public class MostrarParteCtrll implements Initializable {
                 return;
             }
 
-        }else {
+        } else {
             incidencia.setSancion(opcionesSancioncb.getValue());
 
             // Comprueba si es otro o no
-            if(opcionesSancioncb.getValue().equals(sanciones.toArray()[sanciones.size()-1])){
+            if (opcionesSancioncb.getValue().equals(sanciones.toArray()[sanciones.size() - 1])) {
                 incidencia.setSancion(sancionOtraTxArea.getText());
 
             } else {
@@ -188,8 +237,6 @@ public class MostrarParteCtrll implements Initializable {
         IncidenciaDAOImpl incidenciaDAO = new IncidenciaDAOImpl();
 
         incidenciaDAO.modificar(incidencia);
-
-        onCancelarAction(actionEvent);
     }
 
     public void onCancelarAction(ActionEvent actionEvent) {
@@ -199,20 +246,15 @@ public class MostrarParteCtrll implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        habilitarCampos(false);
+        Platform.runLater(() -> {
+            anchorPaneParte.layoutXProperty().bind(anchorPane.widthProperty().subtract(anchorPaneParte.widthProperty()).divide(2));
+            anchorPaneParte.layoutYProperty().bind(anchorPane.heightProperty().subtract(anchorPaneParte.heightProperty()).divide(2));
+        });
         opcionesSancioncb.setItems(sanciones);
 
-        ObjectMapper JSON_MAPPER = new ObjectMapper();
-
-        try {
-            Map<String, List<String>> json = JSON_MAPPER.readValue(
-                    new File("src/main/resources/variables_externas/horario.json"),
-                    new TypeReference<>() {
-                    });
-
-            horas.addAll(json.get("horas"));
-
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+        for (Hora h : horaDAO.listar()) {
+            horas.add(h.getHora());
         }
 
         cb_hora.setItems(horas);
@@ -225,14 +267,15 @@ public class MostrarParteCtrll implements Initializable {
             if (alumno != null) tf_nombreGrupo.setText(alumno.getGrupo().getNombreGrupo());
             else tf_nombreGrupo.clear();
 
-        }catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     @FXML
     void onParteNaranja(ActionEvent event) {
         paneRojo.setVisible(false);
         paneVerde.setVisible(true);
-        anchoPaneParte.setStyle("-fx-background-color: orange;");
+        anchorPaneParte.setStyle("-fx-background-color:#FFA500");
         lbTitulo.setText("PARTE NARANJA DE ADVERTENCIA");
         color = Color.NARANJA;
     }
@@ -241,7 +284,7 @@ public class MostrarParteCtrll implements Initializable {
     void onParteRojo(ActionEvent event) {
         paneRojo.setVisible(true);
         paneVerde.setVisible(false);
-        anchoPaneParte.setStyle("-fx-background-color: red;");
+        anchorPaneParte.setStyle("-fx-background-color:#E64942");
         lbTitulo.setText("PARTE ROJO DE ADVERTENCIA");
         color = Color.ROJO;
     }
@@ -250,8 +293,20 @@ public class MostrarParteCtrll implements Initializable {
     void onParteVerde(ActionEvent event) {
         paneRojo.setVisible(false);
         paneVerde.setVisible(true);
-        anchoPaneParte.setStyle("-fx-background-color: green;");
+        anchorPaneParte.setStyle("-fx-background-color: #befc77");
         lbTitulo.setText("PARTE VERDE DE ADVERTENCIA");
         color = Color.VERDE;
     }
+
+    public void onBorrarAction(ActionEvent actionEvent) {
+        int opcion = JOptionPane.showConfirmDialog(null,
+                "¿Está seguro de que desea eliminar el parte?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            IncidenciaDAOImpl incidenciaDAO = new IncidenciaDAOImpl();
+            // ELIMINAMOS LA INCIDENCIA Y SE CIERRA LA VENTANA
+            incidenciaDAO.eliminar(incidencia.getIdParte());
+            onCancelarAction(actionEvent);
+            /** luego se tendria que dar al boton de recargar **/
+        }
+    } // METODO PARA ELIMINAR PARTES
 }

@@ -119,6 +119,27 @@ public class LecturaClases {
 
         }
 
+        // Preuba lectura de horas
+        transaction = null;
+        List<Hora> horas = new ArrayList<>();
+
+        try {
+            transaction = session.beginTransaction();
+            horas = session.createQuery("from Hora").list();
+            transaction.commit();
+            System.out.println("Bien");
+
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+
+        for (Hora h: horas) {
+            System.out.println(h);
+
+        }
+
         HibernateUtil.close();
 
     }

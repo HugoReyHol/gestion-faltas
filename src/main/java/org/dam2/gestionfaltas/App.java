@@ -6,8 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.dam2.gestionfaltas.util.HibernateUtil;
 import org.dam2.gestionfaltas.util.R;
-
-
+import javafx.scene.image.Image;
 import java.io.IOException;
 
 public class App extends Application {
@@ -18,7 +17,8 @@ public class App extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Gestión faltas");
         stage.setScene(scene);
-
+        // AÑADIR IMAGEN EN EL STAGE DEL LOGO DE LA APLICACION
+        stage.getIcons().add(new Image(R.getUI("Image/logoRiberaPequeño.png").toString()));
         // Cuando se cierre el primer stage cierra tambien la base de datos
         stage.setOnCloseRequest(e -> HibernateUtil.close());
 

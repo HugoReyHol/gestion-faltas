@@ -182,4 +182,23 @@ public class IncidenciaDAOImpl implements IncidenciaDAO {
         }
         return incidencias; // DEVOLVER LA LISTA
     } // METODO PARA LISTAR INCIDENCIAS POR RANGO DE FECHAS
+
+    public List<Incidencia> listarPorFechaConcreta(LocalDate fecha) {
+        Session session = HibernateUtil.getSession(); // OBTENER LA SESION
+        Transaction transaction = null; // INICIAR TRANSACCION
+        List<Incidencia> incidencias = new ArrayList<>(); // CREAR LISTA DE INCIDENCIAS
+
+        try {
+            transaction = session.beginTransaction();
+            String hql = "FROM Incidencia WHERE fecha = :fecha ORDER BY fecha DESC";
+            Query<Incidencia> query = session.createQuery(hql, Incidencia.class);
+            query.setParameter("fecha", fecha);
+            incidencias = query.list();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback(); // SI HAY UN ERROR SE DESHACE LA TRANSACCION
+            e.printStackTrace();
+        }
+        return incidencias; // DEVOLVER LA LISTA
+    } // METODO PARA LISTAR INCIDENCIAS CON UNA FECHA CONCRETA
 }
